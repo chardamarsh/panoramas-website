@@ -1,23 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { API } from 'aws-amplify';
-import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
+//import { API } from 'aws-amplify';
+import { MapContainer, TileLayer, useMap, Marker, Popup, LayersControl } from 'react-leaflet';
+//import { Storage } from "@aws-amplify/storage";
+//import Papa from 'papaparse';
+//import './Panorama-sites-list.csv';
+import L from 'leaflet';
+import siteList from './resources/Sites-List.json';
 
 
 function App() {
+
+const recreatedSites = siteList.filter(siteList => siteList.imgRecreated !== "");
+const originalSites = siteList.filter(siteList => siteList.imgOriginal !== "");
+console.log(recreatedSites);
+console.log(originalSites);
+
+
   return (
     
-      <MapContainer center={[45.60, -125.38]} zoom={6} scrollWheelZoom={true}>
-  <TileLayer
-    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-  />
-  <Marker position={[45.90, -120.38]}>
-    <Popup>
-      does this commit work?
-    </Popup>
-  </Marker>
-</MapContainer>
+  <MapContainer center={[45.60, -125.38]} zoom={6} scrollWheelZoom={true}>
+    <TileLayer
+      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+
+    {siteList.map(site => (
+      <Marker
+      key = {site.id}
+      position = {[site.Latitude, site.Longitude]}
+      eventHandlers={{
+        click: (e) => {
+          console.log('marker clicked', e)
+        },
+      }}>
+        <Popup>
+        <div className="sidebar">
+          <b>Site Name: </b> {site.SiteName}<br />
+          <b>Forest:  </b> {site.Forest}<br />
+          <b>County:  </b> {site.County}<br />
+          <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
+          <b>Latitude:  </b> {site.Latitude}<br />
+          <b>Longitude: </b> {site.Longitude}<br />
+          <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
+          <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
+        </div>
+        </Popup> 
+      </Marker>
+    ))}
+
+
+   
+  </MapContainer>
     
   );
 }
@@ -87,4 +121,99 @@ function App() {
   );
 }
 
-export default withAuthenticator(App); */
+export default withAuthenticator(App);
+
+
+
+
+
+
+
+
+
+<LayersControl position="topright">
+      <LayersControl.Overlay name="All Sites">
+        {siteList.map(site => (
+        <Marker
+        key = {site.id}
+        position = {[site.Latitude, site.Longitude]}
+        eventHandlers={{
+          click: (e) => {
+            console.log('marker clicked', e)
+          },
+        }}>
+          <Popup>
+          <div className="sidebar">
+            <b>Site Name: </b> {site.SiteName}<br />
+            <b>Forest:  </b> {site.Forest}<br />
+            <b>County:  </b> {site.County}<br />
+            <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
+            <b>Latitude:  </b> {site.Latitude}<br />
+            <b>Longitude: </b> {site.Longitude}<br />
+            <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
+            <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
+          </div>
+          </Popup> 
+        </Marker>
+        ))}
+      </LayersControl.Overlay>
+      <LayersControl.Overlay checked name="Recreated Sites">
+        {recreatedSites.map(site => (
+        <Marker
+        key = {site.id}
+        position = {[site.Latitude, site.Longitude]}
+        eventHandlers={{
+          click: (e) => {
+            console.log('marker clicked', e)
+          },
+        }}>
+          <Popup>
+          <div className="sidebar">
+            <b>Site Name: </b> {site.SiteName}<br />
+            <b>Forest:  </b> {site.Forest}<br />
+            <b>County:  </b> {site.County}<br />
+            <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
+            <b>Latitude:  </b> {site.Latitude}<br />
+            <b>Longitude: </b> {site.Longitude}<br />
+            <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
+            <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
+          </div>
+          </Popup> 
+        </Marker>
+        ))}
+      </LayersControl.Overlay>
+      <LayersControl.Overlay name="Sites with Only Historical Images">
+        {originalSites.map(site => (
+          <Marker
+          key = {site.id}
+          position = {[site.Latitude, site.Longitude]}
+          eventHandlers={{
+            click: (e) => {
+              console.log('marker clicked', e)
+            },
+          }}>
+            <Popup>
+            <div className="sidebar">
+              <b>Site Name: </b> {site.SiteName}<br />
+              <b>Forest:  </b> {site.Forest}<br />
+              <b>County:  </b> {site.County}<br />
+              <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
+              <b>Latitude:  </b> {site.Latitude}<br />
+              <b>Longitude: </b> {site.Longitude}<br />
+              <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
+              <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
+            </div>
+            </Popup> 
+          </Marker>
+          ))}
+        </LayersControl.Overlay>
+        </LayersControl>
+
+
+
+
+
+
+
+
+*/
