@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 //import { API } from 'aws-amplify';
-import { MapContainer, TileLayer, useMap, Marker, Popup, LayersControl } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
+import {LayersControl} from 'react-leaflet/LayersControl';
+import { LayerGroup } from 'react-leaflet/LayerGroup';
+import { FeatureGroup } from 'react-leaflet/FeatureGroup';
 //import { Storage } from "@aws-amplify/storage";
 //import Papa from 'papaparse';
 //import './Panorama-sites-list.csv';
@@ -25,31 +28,89 @@ console.log(originalSites);
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
 
-    {siteList.map(site => (
-      <Marker
-      key = {site.id}
-      position = {[site.Latitude, site.Longitude]}
-      eventHandlers={{
-        click: (e) => {
-          console.log('marker clicked', e)
-        },
-      }}>
-        <Popup>
-        <div className="sidebar">
-          <b>Site Name: </b> {site.SiteName}<br />
-          <b>Forest:  </b> {site.Forest}<br />
-          <b>County:  </b> {site.County}<br />
-          <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
-          <b>Latitude:  </b> {site.Latitude}<br />
-          <b>Longitude: </b> {site.Longitude}<br />
-          <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
-          <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
-        </div>
-        </Popup> 
-      </Marker>
-    ))}
-
-
+       <LayersControl position="topright">
+          <LayersControl.Overlay checked name="All Sites">
+          <LayerGroup>
+                    {siteList.map(site => (
+              <Marker
+              key = {site.id}
+              position = {[site.Latitude, site.Longitude]}
+              eventHandlers={{
+                click: (e) => {
+                  console.log('marker clicked', e)
+                },
+              }}>
+                <Popup>
+                <div className="sidebar">
+                  <b>Site Name: </b> {site.SiteName}<br />
+                  <b>Forest:  </b> {site.Forest}<br />
+                  <b>County:  </b> {site.County}<br />
+                  <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
+                  <b>Latitude:  </b> {site.Latitude}<br />
+                  <b>Longitude: </b> {site.Longitude}<br />
+                  <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
+                  <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
+                </div>
+                </Popup> 
+              </Marker>
+            ))}    
+            </LayerGroup>
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name="Recreated Sites">
+              <LayerGroup>
+                    {recreatedSites.map(recSite => (
+              <Marker
+              key = {recSite.id}
+              position = {[recSite.Latitude, recSite.Longitude]}
+              eventHandlers={{
+                click: (e) => {
+                  console.log('marker clicked', e)
+                },
+              }}>
+                <Popup>
+                <div className="sidebar">
+                  <b>Site Name: </b> {recSite.SiteName}<br />
+                  <b>Forest:  </b> {recSite.Forest}<br />
+                  <b>County:  </b> {recSite.County}<br />
+                  <b>Elevation in Feet: </b>: {recSite.ElevationFeet}<br />
+                  <b>Latitude:  </b> {recSite.Latitude}<br />
+                  <b>Longitude: </b> {recSite.Longitude}<br />
+                  <b>Township, Range, Section, Meridian:  </b> {recSite.TRSM}<br />
+                  <b>USGS 7.5 min. map: </b> {recSite.USGS75Min}<br />
+                </div>
+                </Popup> 
+              </Marker>
+            ))}    
+            </LayerGroup>
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name="Sites With Only Historical Images">
+              <LayerGroup>
+                    {originalSites.map(orSite => (
+              <Marker
+              key = {orSite.id}
+              position = {[orSite.Latitude, orSite.Longitude]}
+              eventHandlers={{
+                click: (e) => {
+                  console.log('marker clicked', e)
+                },
+              }}>
+                <Popup>
+                <div className="sidebar">
+                  <b>Site Name: </b> {orSite.SiteName}<br />
+                  <b>Forest:  </b> {orSite.Forest}<br />
+                  <b>County:  </b> {orSite.County}<br />
+                  <b>Elevation in Feet: </b>: {orSite.ElevationFeet}<br />
+                  <b>Latitude:  </b> {orSite.Latitude}<br />
+                  <b>Longitude: </b> {orSite.Longitude}<br />
+                  <b>Township, Range, Section, Meridian:  </b> {orSite.TRSM}<br />
+                  <b>USGS 7.5 min. map: </b> {orSite.USGS75Min}<br />
+                </div>
+                </Popup> 
+              </Marker>
+            ))}    
+            </LayerGroup>
+          </LayersControl.Overlay>
+        </LayersControl>
    
   </MapContainer>
     
