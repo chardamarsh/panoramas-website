@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-//import { API } from 'aws-amplify';
+
+import { Amplify, Storage } from 'aws-amplify';
+import awsconfig from './aws-exports';
+
+
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
 import {LayersControl} from 'react-leaflet/LayersControl';
 import { LayerGroup } from 'react-leaflet/LayerGroup';
 import { FeatureGroup } from 'react-leaflet/FeatureGroup';
-//import { Storage } from "@aws-amplify/storage";
-//import Papa from 'papaparse';
-//import './Panorama-sites-list.csv';
 import L from 'leaflet';
-import siteList from './resources/Sites-List.json';
+
+import siteList from './resources/Panorama-sites-list-updated.json';
+
+Amplify.configure(awsconfig);
 
 
 function App() {
 
 const recreatedSites = siteList.filter(siteList => siteList.imgRecreated !== "");
-const originalSites = siteList.filter(siteList => siteList.imgOriginal !== "");
-console.log(recreatedSites);
-console.log(originalSites);
+//const originalSites = siteList.filter(siteList => siteList.imgOriginal !== "");
+//const unscannedSites = siteList.filter(siteList => siteList.imgOriginal === "");
+const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.us-west-1.amazonaws.com/panoramaimages";
+//console.log(recreatedSites);
+//console.log(originalSites);
+
+const originalImageLinks = ["","","",""];
+const replicationImageLinks = ["","","",""]; //array length may need to change if some sites have more than 4 directions.
+
 
 
   return (
@@ -37,7 +47,7 @@ console.log(originalSites);
               position = {[site.Latitude, site.Longitude]}
               eventHandlers={{
                 click: (e) => {
-                  console.log('marker clicked', e)
+                  console.log('marker clicked', site)
                 },
               }}>
                 <Popup>
@@ -56,7 +66,7 @@ console.log(originalSites);
             ))}    
             </LayerGroup>
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="Recreated Sites">
+          <LayersControl.Overlay name="Replicated Sites">
               <LayerGroup>
                     {recreatedSites.map(recSite => (
               <Marker
@@ -64,10 +74,22 @@ console.log(originalSites);
               position = {[recSite.Latitude, recSite.Longitude]}
               eventHandlers={{
                 click: (e) => {
-                  console.log('marker clicked', e)
+                  console.log('marker clicked', recSite);
+                  console.log(recSite.Directions);
+                  var tempOriginal = recSite.Directions.split(' ');
+                  var tempReplication = recSite.Directions.split(' ');
+                  var numLinks = tempOriginal.length;
+                  for(var i = 0; i < numLinks; i++)
+                  {
+                    originalImageLinks[i] = imgSource + recSite.imgRecreated + tempOriginal[i] + '/' + tempOriginal[i] + '-Original.jpg';
+                    replicationImageLinks[i] = imgSource + recSite.imgRecreated + tempReplication[i] + '/' + tempReplication[i] + '-Replication.jpg';
+                  }
+                  console.log('original links',originalImageLinks);
+                  console.log('replication links',replicationImageLinks); //test statements.
+                  
                 },
               }}>
-                <Popup>
+                <Popup class="imageInfo">
                 <div className="sidebar">
                   <b>Site Name: </b> {recSite.SiteName}<br />
                   <b>Forest:  </b> {recSite.Forest}<br />
@@ -77,13 +99,16 @@ console.log(originalSites);
                   <b>Longitude: </b> {recSite.Longitude}<br />
                   <b>Township, Range, Section, Meridian:  </b> {recSite.TRSM}<br />
                   <b>USGS 7.5 min. map: </b> {recSite.USGS75Min}<br />
+                  <img className="replications" src={replicationImageLinks[0]} alt={replicationImageLinks[0]}/>
                 </div>
+                
+                
                 </Popup> 
               </Marker>
             ))}    
             </LayerGroup>
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="Sites With Only Historical Images">
+          {/*<LayersControl.Overlay name="Sites With Only Historical Images">
               <LayerGroup>
                     {originalSites.map(orSite => (
               <Marker
@@ -110,6 +135,36 @@ console.log(originalSites);
             ))}    
             </LayerGroup>
           </LayersControl.Overlay>
+
+
+
+          <LayersControl.Overlay name="Unscanned Sites">
+              <LayerGroup>
+                    {unscannedSites.map(unSite => (
+              <Marker
+              key = {unSite.id}
+              position = {[unSite.Latitude, unSite.Longitude]}
+              eventHandlers={{
+                click: (e) => {
+                  console.log('marker clicked', e)
+                },
+              }}>
+                <Popup>
+                <div className="sidebar">
+                  <b>Site Name: </b> {unSite.SiteName}<br />
+                  <b>Forest:  </b> {unSite.Forest}<br />
+                  <b>County:  </b> {unSite.County}<br />
+                  <b>Elevation in Feet: </b>: {unSite.ElevationFeet}<br />
+                  <b>Latitude:  </b> {unSite.Latitude}<br />
+                  <b>Longitude: </b> {unSite.Longitude}<br />
+                  <b>Township, Range, Section, Meridian:  </b> {unSite.TRSM}<br />
+                  <b>USGS 7.5 min. map: </b> {unSite.USGS75Min}<br />
+                </div>
+                </Popup> 
+              </Marker>
+            ))}    
+            </LayerGroup>
+            </LayersControl.Overlay>*/}
         </LayersControl>
    
   </MapContainer>
