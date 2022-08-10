@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, setState, useEffect } from 'react';
 import './App.css';
 
 import { Amplify, Storage } from 'aws-amplify';
@@ -25,9 +25,8 @@ const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.u
 //console.log(recreatedSites);
 //console.log(originalSites);
 
-const originalImageLinks = ["","","",""];
-const replicationImageLinks = ["","","",""]; //array length may need to change if some sites have more than 4 directions.
-
+const [originalImageLinks, setOrLinks] = useState(["","","",""])
+const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array length may need to change if some sites have more than 4 directions.
 
 
   return (
@@ -74,22 +73,28 @@ const replicationImageLinks = ["","","",""]; //array length may need to change i
               position = {[recSite.Latitude, recSite.Longitude]}
               eventHandlers={{
                 click: (e) => {
-                  console.log('marker clicked', recSite);
-                  console.log(recSite.Directions);
-                  var tempOriginal = recSite.Directions.split(' ');
-                  var tempReplication = recSite.Directions.split(' ');
+                  
+                  var tempOriginal = recSite.Directions.split(" ");
+                  var tempReplication = recSite.Directions.split(" ");
+                  //console.log(tempReplication);
+                  //console.log(tempOriginal);
                   var numLinks = tempOriginal.length;
                   for(var i = 0; i < numLinks; i++)
                   {
-                    originalImageLinks[i] = imgSource + recSite.imgRecreated + tempOriginal[i] + '/' + tempOriginal[i] + '-Original.jpg';
-                    replicationImageLinks[i] = imgSource + recSite.imgRecreated + tempReplication[i] + '/' + tempReplication[i] + '-Replication.jpg';
+                    tempOriginal[i] = imgSource + recSite.imgRecreated + tempOriginal[i] + '/' + tempOriginal[i] + '-Original.jpg';
+                    tempReplication[i] = imgSource + recSite.imgRecreated + tempReplication[i] + '/' + tempReplication[i] + '-Replication.jpg';
                   }
-                  console.log('original links',originalImageLinks);
-                  console.log('replication links',replicationImageLinks); //test statements.
                   
+                  //console.log('rep',tempReplication);
+                  //console.log('orig',tempOriginal);
+                  setRepLinks(tempReplication);
+                  setOrLinks(tempOriginal);
+                  
+
                 },
               }}>
                 <Popup class="imageInfo">
+                
                 <div className="sidebar">
                   <b>Site Name: </b> {recSite.SiteName}<br />
                   <b>Forest:  </b> {recSite.Forest}<br />
@@ -99,8 +104,10 @@ const replicationImageLinks = ["","","",""]; //array length may need to change i
                   <b>Longitude: </b> {recSite.Longitude}<br />
                   <b>Township, Range, Section, Meridian:  </b> {recSite.TRSM}<br />
                   <b>USGS 7.5 min. map: </b> {recSite.USGS75Min}<br />
-                  <img className="replications" src={replicationImageLinks[0]} alt={replicationImageLinks[0]}/>
+                  {originalImageLinks}<br />
+                  
                 </div>
+                
                 
                 
                 </Popup> 
