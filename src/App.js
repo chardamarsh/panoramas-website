@@ -1,43 +1,22 @@
 import React, { useState, setState, useEffect } from 'react';
 import './App.css';
-import './components/osborneMap.js';
-import './components/sidebar.js';
 
 import { Amplify, Storage } from 'aws-amplify';
 import awsconfig from './aws-exports';
 
 
-//import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
-//import {LayersControl} from 'react-leaflet/LayersControl';
-//import { LayerGroup } from 'react-leaflet/LayerGroup';
-//import { FeatureGroup } from 'react-leaflet/FeatureGroup';
-//import L from 'leaflet';
+import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
+import {LayersControl} from 'react-leaflet/LayersControl';
+import { LayerGroup } from 'react-leaflet/LayerGroup';
+import { FeatureGroup } from 'react-leaflet/FeatureGroup';
+import L from 'leaflet';
 
 import siteList from './resources/Panorama-sites-list-updated.json';
-
-
-
 
 Amplify.configure(awsconfig);
 
 
 function App() {
-
-  
-
-  return (
-
-
-    <osborneMap/>
-
-
-    );
-  }
-  
-  export default App;
-
-/*
-
 
 const recreatedSites = siteList.filter(siteList => siteList.imgRecreated !== "");
 //const originalSites = siteList.filter(siteList => siteList.imgOriginal !== "");
@@ -52,7 +31,7 @@ const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array len
 
   return (
     
-  <MapContainer center={[45.60, -125.38]} zoom={6} scrollWheelZoom={true} doubleClickZoom={false}>
+  <MapContainer center={[45.60, -125.38]} zoom={6} scrollWheelZoom={true}>
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -192,12 +171,15 @@ const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array len
               </Marker>
             ))}    
             </LayerGroup>
-            </LayersControl.Overlay>
+            </LayersControl.Overlay>*/}
         </LayersControl>
    
   </MapContainer>
-    */
- 
+    
+  );
+}
+
+export default App;
 
 
 /*import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
