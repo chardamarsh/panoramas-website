@@ -1,5 +1,11 @@
+
+
 .leaflet-container{
   width:100vw;
   height:100vh;
 }
 
+.image-preview{
+  width:400px;
+  height: auto;
+}

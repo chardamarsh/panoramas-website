@@ -1,15 +1,21 @@
 import React, { useState, setState, useEffect } from 'react';
-import './App.css';
 
-import { Amplify, Storage } from 'aws-amplify';
+import './App.css';
+import './menuStyle.css';
+
+import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports';
 
 
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
 import {LayersControl} from 'react-leaflet/LayersControl';
 import { LayerGroup } from 'react-leaflet/LayerGroup';
-import { FeatureGroup } from 'react-leaflet/FeatureGroup';
-import L from 'leaflet';
+//import { FeatureGroup } from 'react-leaflet/FeatureGroup';
+//import L from 'leaflet';
+
+import { slide as Menu } from 'react-burger-menu'
+
+import ImageGallery from 'react-image-gallery';
 
 import siteList from './resources/Panorama-sites-list-updated.json';
 
@@ -27,11 +33,30 @@ const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.u
 
 const [originalImageLinks, setOrLinks] = useState(["","","",""])
 const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array length may need to change if some sites have more than 4 directions.
+const [isMenuOpen, setMenuOpen] = useState(false)
 
+
+const getImages = (link) => {
+  const images = [];
+  for (let i = 0; i < link.length; i++) {
+      images.push({
+          original: link[i],
+      });
+  }
+  return images;
+};
 
   return (
+  <div id="outer-container">
+    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } width={'fit-content'} isOpen={[isMenuOpen]} width={'60%'}>
     
-  <MapContainer center={[45.60, -125.38]} zoom={6} scrollWheelZoom={true}>
+      <ImageGallery items={getImages(originalImageLinks)}/>
+      <ImageGallery items={getImages(replicationImageLinks)}/>
+      
+    </Menu>
+      
+      <main id="page-wrap"> 
+  <MapContainer center={[45.60, -125.38]} zoom={6} scrollWheelZoom={true} zoomControl={false}>
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -47,6 +72,10 @@ const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array len
               eventHandlers={{
                 click: (e) => {
                   console.log('marker clicked', site)
+                  setRepLinks(["","","",""]); //resetting the links here in order to make sure images from previously clicked marker is not included.
+                  setOrLinks(["","","",""]);
+                  //setMenuOpen(true);
+                  console.log(isMenuOpen);
                 },
               }}>
                 <Popup>
@@ -84,6 +113,9 @@ const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array len
                     tempOriginal[i] = imgSource + recSite.imgRecreated + tempOriginal[i] + '/' + tempOriginal[i] + '-Original.jpg';
                     tempReplication[i] = imgSource + recSite.imgRecreated + tempReplication[i] + '/' + tempReplication[i] + '-Replication.jpg';
                   }
+
+                  setMenuOpen(true);
+                  console.log(isMenuOpen, 'why close');
                   
                   //console.log('rep',tempReplication);
                   //console.log('orig',tempOriginal);
@@ -176,6 +208,9 @@ const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array len
    
   </MapContainer>
     
+      </main>
+  </div>
+  
   );
 }
 
