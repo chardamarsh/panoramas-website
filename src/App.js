@@ -7,7 +7,7 @@ import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports';
 
 
-import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, Marker, Popup, setCenter } from 'react-leaflet';
 import {LayersControl} from 'react-leaflet/LayersControl';
 import { LayerGroup } from 'react-leaflet/LayerGroup';
 //import { FeatureGroup } from 'react-leaflet/FeatureGroup';
@@ -25,6 +25,7 @@ Amplify.configure(awsconfig);
 function App() {
 
 const recreatedSites = siteList.filter(siteList => siteList.imgRecreated !== "");
+const allOtherSites = siteList.filter(siteList => siteList.Directions ==="")
 //const originalSites = siteList.filter(siteList => siteList.imgOriginal !== "");
 //const unscannedSites = siteList.filter(siteList => siteList.imgOriginal === "");
 const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.us-west-1.amazonaws.com/panoramaimages";
@@ -33,7 +34,22 @@ const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.u
 
 const [originalImageLinks, setOrLinks] = useState(["","","",""])
 const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array length may need to change if some sites have more than 4 directions.
-const [isMenuOpen, setMenuOpen] = useState(false)
+const [isMenuOpen, setMenuOpen] = useState(false)//used to open sidebar when a marker is clicked.
+const [menuMode, setMenuMode] = useState('30%')
+//const[mapCenter, setMapCenter] = useState([45.60, -125.38])
+//const map = useMap();
+
+function displayGallery([orLinkList], [repLinkList]) {
+  if (orLinkList[0] !== '') {
+    return (
+          <React.Fragment>
+            <ImageGallery items={getImages(orLinkList)}/>
+            <ImageGallery items={getImages(repLinkList)}/>
+          </React.Fragment>
+            );
+  }
+  return;
+}
 
 
 const getImages = (link) => {
@@ -48,10 +64,11 @@ const getImages = (link) => {
 
   return (
   <div id="outer-container">
-    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } width={'fit-content'} isOpen={[isMenuOpen]} width={'60%'}>
+    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } width={'fit-content'} isOpen={[isMenuOpen]} width={menuMode}>
     
-      <ImageGallery items={getImages(originalImageLinks)}/>
-      <ImageGallery items={getImages(replicationImageLinks)}/>
+      {
+        displayGallery([originalImageLinks], [replicationImageLinks])
+      }
       
     </Menu>
       
@@ -63,9 +80,9 @@ const getImages = (link) => {
     />
 
        <LayersControl position="topright">
-          <LayersControl.Overlay checked name="All Sites">
+          <LayersControl.Overlay checked name="All Other Sites">
           <LayerGroup>
-                    {siteList.map(site => (
+                    {allOtherSites.map(site => (
               <Marker
               key = {site.id}
               position = {[site.Latitude, site.Longitude]}
@@ -74,7 +91,13 @@ const getImages = (link) => {
                   console.log('marker clicked', site)
                   setRepLinks(["","","",""]); //resetting the links here in order to make sure images from previously clicked marker is not included.
                   setOrLinks(["","","",""]);
-                  //setMenuOpen(true);
+                  console.log('links all sites', originalImageLinks);
+                  console.log('is menu open',isMenuOpen);
+                  setMenuOpen(false);
+                  setMenuMode('30%');
+                  //setMapCenter([site.Latitude, site.Longitude]);
+                  //map.([site.Latitude, site.Longitude])
+                  //console.log(mapCenter);
                   console.log(isMenuOpen);
                 },
               }}>
@@ -113,14 +136,18 @@ const getImages = (link) => {
                     tempOriginal[i] = imgSource + recSite.imgRecreated + tempOriginal[i] + '/' + tempOriginal[i] + '-Original.jpg';
                     tempReplication[i] = imgSource + recSite.imgRecreated + tempReplication[i] + '/' + tempReplication[i] + '-Replication.jpg';
                   }
-
-                  setMenuOpen(true);
-                  console.log(isMenuOpen, 'why close');
                   
+                  console.log('is menu open',isMenuOpen);
+                  setMenuOpen(true);
+                  //console.log(isMenuOpen, 'why close');
+                  setMenuMode('60%');
                   //console.log('rep',tempReplication);
                   //console.log('orig',tempOriginal);
                   setRepLinks(tempReplication);
                   setOrLinks(tempOriginal);
+                  //setMapCenter([recSite.Latitude, recSite.Longitude]);
+                  //map.setCenter([recSite.Latitude, recSite.Longitude])
+                  //console.log(mapCenter);
                   
 
                 },
@@ -136,7 +163,6 @@ const getImages = (link) => {
                   <b>Longitude: </b> {recSite.Longitude}<br />
                   <b>Township, Range, Section, Meridian:  </b> {recSite.TRSM}<br />
                   <b>USGS 7.5 min. map: </b> {recSite.USGS75Min}<br />
-                  {originalImageLinks}<br />
                   
                 </div>
                 
