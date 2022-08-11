@@ -80,7 +80,7 @@ const getImages = (link) => {
     />
 
        <LayersControl position="topright">
-          <LayersControl.Overlay checked name="All Other Sites">
+          <LayersControl.Overlay name="All Other Sites">
           <LayerGroup>
                     {allOtherSites.map(site => (
               <Marker
@@ -117,7 +117,7 @@ const getImages = (link) => {
             ))}    
             </LayerGroup>
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="Replicated Sites">
+          <LayersControl.Overlay checked name="Replicated Sites">
               <LayerGroup>
                     {recreatedSites.map(recSite => (
               <Marker
