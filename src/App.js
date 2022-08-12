@@ -13,6 +13,10 @@ import { LayerGroup } from 'react-leaflet/LayerGroup';
 //import { FeatureGroup } from 'react-leaflet/FeatureGroup';
 //import L from 'leaflet';
 
+
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
 import { slide as Menu } from 'react-burger-menu'
 
 import ImageGallery from 'react-image-gallery';
@@ -35,7 +39,7 @@ const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.u
 const [originalImageLinks, setOrLinks] = useState(["","","",""])
 const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array length may need to change if some sites have more than 4 directions.
 const [isMenuOpen, setMenuOpen] = useState(false)//used to open sidebar when a marker is clicked.
-const [menuMode, setMenuMode] = useState('30%')
+const [menuMode, setMenuMode] = useState('20%')
 //const[mapCenter, setMapCenter] = useState([45.60, -125.38])
 //const map = useMap();
 
@@ -63,7 +67,41 @@ const getImages = (link) => {
 };
 
   return (
+
+  
   <div id="outer-container">
+    <div class="header">
+    <div class="header-left">
+      <div class="icon">
+        <img class="iconimg" src="https://icon-library.com/images/square-icon/square-icon-21.jpg" alt="icon"></img>
+      </div>
+      <div class="title">
+        Osborne Panoramas Map
+      </div>
+      
+    </div>
+      <div class="header-right">
+      <div class="infoLinks">
+        <div>
+          <a href="#info">More Information</a>
+        </div>
+        <div>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+        <div class="createdby">
+          <p>Created By</p>
+          <p>Charles Marshall</p>
+        </div>
+        <div class="socialicons">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+          <a href="https://www.linkedin.com/in/charles-marshall-56ba81204/" class="fa fa-linkedin"></a>
+          <a href="https://github.com/chardamarsh" class="fa fa-github"></a>
+        </div>
+      </div>
+    </div>
+      
+
     <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } width={'fit-content'} isOpen={[isMenuOpen]} width={menuMode}>
     
       {
@@ -93,8 +131,11 @@ const getImages = (link) => {
                   setOrLinks(["","","",""]);
                   console.log('links all sites', originalImageLinks);
                   console.log('is menu open',isMenuOpen);
-                  setMenuOpen(false);
-                  setMenuMode('30%');
+                  //setMenuOpen(true);
+                  
+                  setMenuOpen(true);
+                  //setMenuOpen(false);
+                  setMenuMode('20%');
                   //setMapCenter([site.Latitude, site.Longitude]);
                   //map.([site.Latitude, site.Longitude])
                   //console.log(mapCenter);
@@ -139,8 +180,9 @@ const getImages = (link) => {
                   
                   console.log('is menu open',isMenuOpen);
                   setMenuOpen(true);
+                  //setMenuOpen(false);
                   //console.log(isMenuOpen, 'why close');
-                  setMenuMode('60%');
+                  setMenuMode('40%');
                   //console.log('rep',tempReplication);
                   //console.log('orig',tempOriginal);
                   setRepLinks(tempReplication);
