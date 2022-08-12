@@ -22,6 +22,7 @@ import { slide as Menu } from 'react-burger-menu'
 import ImageGallery from 'react-image-gallery';
 
 import siteList from './resources/Panorama-sites-list-updated.json';
+import cameraicon from './resources/thumbnail_Osborne.png';
 
 Amplify.configure(awsconfig);
 
@@ -39,7 +40,8 @@ const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.u
 const [originalImageLinks, setOrLinks] = useState(["","","",""])
 const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array length may need to change if some sites have more than 4 directions.
 const [isMenuOpen, setMenuOpen] = useState(false)//used to open sidebar when a marker is clicked.
-const [menuMode, setMenuMode] = useState('20%')
+const [menuMode, setMenuMode] = useState('20%') // changes sidebar sliding length based on if the site has photos.
+//const [siteInfo, setSiteInfo] = useState(["","","","","","","",""]) // used to display site information in the side menu.
 //const[mapCenter, setMapCenter] = useState([45.60, -125.38])
 //const map = useMap();
 
@@ -66,6 +68,10 @@ const getImages = (link) => {
   return images;
 };
 
+function handleClose(){
+  setMenuOpen(false);
+}
+
   return (
 
   
@@ -73,7 +79,7 @@ const getImages = (link) => {
     <div class="header">
     <div class="header-left">
       <div class="icon">
-        <img class="iconimg" src="https://icon-library.com/images/square-icon/square-icon-21.jpg" alt="icon"></img>
+        <img class="iconimg" src={cameraicon} alt="icon"></img>
       </div>
       <div class="title">
         Osborne Panoramas Map
@@ -83,7 +89,7 @@ const getImages = (link) => {
       <div class="header-right">
       <div class="infoLinks">
         <div>
-          <a href="#info">More Information</a>
+          <a href="https://www.wildlandnw.net/osborne-panoramas-historic-and-modern" target="_blank">More Information</a>
         </div>
         <div>
           <a href="#contact">Contact</a>
@@ -95,23 +101,33 @@ const getImages = (link) => {
         </div>
         <div class="socialicons">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-          <a href="https://www.linkedin.com/in/charles-marshall-56ba81204/" class="fa fa-linkedin"></a>
-          <a href="https://github.com/chardamarsh" class="fa fa-github"></a>
+          <a href="https://www.linkedin.com/in/charles-marshall-56ba81204/" target="_blank" rel="noreferrer" class="fa fa-linkedin"></a>
+          <a href="https://github.com/chardamarsh" target="_blank" rel="noreferrer" class="fa fa-github"></a>
         </div>
       </div>
     </div>
       
 
-    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } width={'fit-content'} isOpen={[isMenuOpen]} width={menuMode}>
-    
+    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } width={'fit-content'} isOpen={[isMenuOpen]} width={menuMode} >
       {
         displayGallery([originalImageLinks], [replicationImageLinks])
+        /*<b>Site Name: </b> {siteInfo[0]}<br />
+                  <b>Forest:  </b> {siteInfo[1]}<br />
+                  <b>County:  </b> {siteInfo[2]}<br />
+                  <b>Elevation in Feet: </b>: {siteInfo[3]}<br />
+                  <b>Latitude:  </b> {siteInfo[4]}<br />
+                  <b>Longitude: </b> {siteInfo[5]}<br />
+                  <b>Township, Range, Section, Meridian:  </b> {siteInfo[6]}<br />
+                  <b>USGS 7.5 min. map: </b> {siteInfo[7]}<br />*/
       }
+                 
+
       
     </Menu>
       
       <main id="page-wrap"> 
   <MapContainer center={[45.60, -125.38]} zoom={6} scrollWheelZoom={true} zoomControl={false}>
+  
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -126,20 +142,23 @@ const getImages = (link) => {
               position = {[site.Latitude, site.Longitude]}
               eventHandlers={{
                 click: (e) => {
+                  setMenuOpen(false);
                   console.log('marker clicked', site)
                   setRepLinks(["","","",""]); //resetting the links here in order to make sure images from previously clicked marker is not included.
                   setOrLinks(["","","",""]);
-                  console.log('links all sites', originalImageLinks);
-                  console.log('is menu open',isMenuOpen);
+                  //console.log('links all sites', originalImageLinks);
+                  //console.log('is menu open',isMenuOpen);
                   //setMenuOpen(true);
-                  
-                  setMenuOpen(true);
                   //setMenuOpen(false);
-                  setMenuMode('20%');
+                  //setMenuMode('0%');
+                  
+                  //setSiteInfo([site.SiteName, site.Forest, site.County, site.ElevationFeet, site.Latitude, site.Longitude, site.TRSM, site.USGS75Min]);
+                  //setSiteInfo([site.id, site.Forest, site.County, site.ElevationFeet, site.Latitude, site.Longitude, site.TRSM, site.USGS75Min]);
+                  //console.log('site info', siteInfo[0]);
                   //setMapCenter([site.Latitude, site.Longitude]);
                   //map.([site.Latitude, site.Longitude])
                   //console.log(mapCenter);
-                  console.log(isMenuOpen);
+                  //console.log(isMenuOpen);
                 },
               }}>
                 <Popup>
@@ -178,15 +197,24 @@ const getImages = (link) => {
                     tempReplication[i] = imgSource + recSite.imgRecreated + tempReplication[i] + '/' + tempReplication[i] + '-Replication.jpg';
                   }
                   
-                  console.log('is menu open',isMenuOpen);
-                  setMenuOpen(true);
+                  //console.log('is menu open',isMenuOpen);
+                  //setMenuOpen(true);
                   //setMenuOpen(false);
                   //console.log(isMenuOpen, 'why close');
-                  setMenuMode('40%');
+                  //setMenuMode('40%');
                   //console.log('rep',tempReplication);
                   //console.log('orig',tempOriginal);
                   setRepLinks(tempReplication);
                   setOrLinks(tempOriginal);
+                  setMenuMode('60%');
+                  setMenuOpen(true);
+
+                  
+                  
+                  
+                  
+                  //setSiteInfo([recSite.SiteName, recSite.Forest, recSite.County, recSite.ElevationFeet, recSite.Latitude, recSite.Longitude, recSite.TRSM, recSite.USGS75Min]);
+                  //console.log('site info', siteInfo[0]);
                   //setMapCenter([recSite.Latitude, recSite.Longitude]);
                   //map.setCenter([recSite.Latitude, recSite.Longitude])
                   //console.log(mapCenter);
