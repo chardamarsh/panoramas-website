@@ -42,7 +42,17 @@ const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.u
 
 const [originalImageLinks, setOrLinks] = useState(["","","",""])
 const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array length may need to change if some sites have more than 4 directions.
-const [isMenuOpen, setMenuOpen] = useState([false])//used to open sidebar when a marker is clicked.
+const [isMenuOpen, setMenuOpen] = useState(false)//used to open sidebar when a marker is clicked.
+
+const handleIsOpen = () => {
+  setMenuOpen(!isMenuOpen)
+}
+
+const closeSideBar = () => {
+  setMenuOpen(false)
+}
+
+
 const [menuMode, setMenuMode] = useState('0%') // changes sidebar sliding length based on if the site has photos.
 //const [siteInfo, setSiteInfo] = useState(["","","","","","","",""]) // used to display site information in the side menu.
 //const[mapCenter, setMapCenter] = useState([45.60, -125.38])
@@ -94,7 +104,7 @@ const getImages = ([orlink], [replink]) => {
       );
   }
   return (
-    <Carousel responsive={responsive} draggable={false}>
+    <Carousel responsive={responsive} draggable={false} partialVisible={false}>
       {images}
     </Carousel>
   );
@@ -165,11 +175,13 @@ function displayGallery([orLinkList], [repLinkList]) {
     </div>
       
 
-    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } isOpen={[isMenuOpen]}  width={menuMode} >
+    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } isOpen={isMenuOpen} onOpen={handleIsOpen}
+    onClose={handleIsOpen} width={menuMode} >
      
-      
+      <button onClick={() => setMenuMode('100%')}>Expand</button>
+      <button onClick={() => setMenuMode('50%')}>Retract</button>
       {getImages([originalImageLinks], [replicationImageLinks])}
-      {}
+      
       
       
     </Menu>
