@@ -1,4 +1,4 @@
-import React, { useState, setState, useEffect } from 'react';
+import React, { useState, setState, useEffect, useRef, useLayoutEffect, Component } from 'react';
 
 import './App.css';
 import './menuStyle.css';
@@ -17,15 +17,18 @@ import { LayerGroup } from 'react-leaflet/LayerGroup';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 
-import { slide as Menu } from 'react-burger-menu'
 
-import ImageGallery from 'react-image-gallery';
+import { slide as Menu } from 'react-burger-menu';
+//import panzoom from 'panzoom';
+
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+
 
 import siteList from './resources/Panorama-sites-list-updated.json';
 import cameraicon from './resources/thumbnail_Osborne.png';
 
-Amplify.configure(awsconfig);
 
+Amplify.configure(awsconfig);
 
 function App() {
 
@@ -39,89 +42,135 @@ const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.u
 
 const [originalImageLinks, setOrLinks] = useState(["","","",""])
 const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array length may need to change if some sites have more than 4 directions.
-const [isMenuOpen, setMenuOpen] = useState(false)//used to open sidebar when a marker is clicked.
-const [menuMode, setMenuMode] = useState('20%') // changes sidebar sliding length based on if the site has photos.
+const [isMenuOpen, setMenuOpen] = useState([false])//used to open sidebar when a marker is clicked.
+const [menuMode, setMenuMode] = useState('0%') // changes sidebar sliding length based on if the site has photos.
 //const [siteInfo, setSiteInfo] = useState(["","","","","","","",""]) // used to display site information in the side menu.
 //const[mapCenter, setMapCenter] = useState([45.60, -125.38])
 //const map = useMap();
 
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 1
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 1
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 1
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
+
+
+
+const getImages = ([orlink], [replink]) => {
+  if(orlink[0] !=='')
+  {
+  
+  const images = [];
+  for (let i = 0; i < orlink.length; i++) {
+      images.push(
+     //<React.Fragment>   
+      <div className="carouselelement">
+        <TransformWrapper>
+          <TransformComponent>
+            <img className ="panoimage" src={orlink[i]} alt="originalpanorama"/>
+          </TransformComponent>
+        </TransformWrapper>
+        <TransformWrapper>
+          <TransformComponent>
+            <img className ="panoimage" src={replink[i]} alt="originalpanorama"/>
+          </TransformComponent>
+        </TransformWrapper>
+      </div>
+      //</React.Fragment>       
+      );
+  }
+  return (
+    <Carousel responsive={responsive} draggable={false}>
+      {images}
+    </Carousel>
+  );
+}
+
+return;
+};
+
+
+/*
 function displayGallery([orLinkList], [repLinkList]) {
   if (orLinkList[0] !== '') {
     return (
+          
           <React.Fragment>
-            <ImageGallery items={getImages(orLinkList)}/>
-            <ImageGallery items={getImages(repLinkList)}/>
+          <div className="originalimgs">
+           {orLinkList.map(orLinks =>(
+           <img src={orLinks} alt="originalimg"/>))
+          } 
+          </div>
+          <div className="replicationimgs">
+           {repLinkList.map(repLinks =>(
+           <img src={repLinks} alt="replicationimg"/>))
+          } 
+          </div>
           </React.Fragment>
-            );
+         );
+          
   }
   return;
-}
+}*/
 
 
-const getImages = (link) => {
-  const images = [];
-  for (let i = 0; i < link.length; i++) {
-      images.push({
-          original: link[i],
-      });
-  }
-  return images;
-};
-
-function handleClose(){
-  setMenuOpen(false);
-}
 
   return (
 
   
   <div id="outer-container">
-    <div class="header">
-    <div class="header-left">
-      <div class="icon">
-        <img class="iconimg" src={cameraicon} alt="icon"></img>
+    <div className="header">
+    <div className="header-left">
+      <div className="icon">
+        <img className="iconimg" src={cameraicon} alt="icon"></img>
       </div>
-      <div class="title">
+      <div className="title">
         Osborne Panoramas Map
       </div>
       
     </div>
-      <div class="header-right">
-      <div class="infoLinks">
+      <div className="header-right">
+      <div className="infoLinks">
         <div>
-          <a href="https://www.wildlandnw.net/osborne-panoramas-historic-and-modern" target="_blank">More Information</a>
+          <a href="https://www.wildlandnw.net/osborne-panoramas-historic-and-modern" target="_blank" rel="noreferrer">More Information</a>
         </div>
         <div>
           <a href="#contact">Contact</a>
         </div>
       </div>
-        <div class="createdby">
+        <div className="createdby">
           <p>Created By</p>
           <p>Charles Marshall</p>
         </div>
-        <div class="socialicons">
+        <div className="socialicons">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-          <a href="https://www.linkedin.com/in/charles-marshall-56ba81204/" target="_blank" rel="noreferrer" class="fa fa-linkedin"></a>
-          <a href="https://github.com/chardamarsh" target="_blank" rel="noreferrer" class="fa fa-github"></a>
+          <a href="https://www.linkedin.com/in/charles-marshall-56ba81204/" target="_blank" rel="noreferrer" className="fa fa-linkedin"></a>
+          <a href="https://github.com/chardamarsh" target="_blank" rel="noreferrer" className="fa fa-github"></a>
         </div>
       </div>
     </div>
       
 
-    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } width={'fit-content'} isOpen={[isMenuOpen]} width={menuMode} >
-      {
-        displayGallery([originalImageLinks], [replicationImageLinks])
-        /*<b>Site Name: </b> {siteInfo[0]}<br />
-                  <b>Forest:  </b> {siteInfo[1]}<br />
-                  <b>County:  </b> {siteInfo[2]}<br />
-                  <b>Elevation in Feet: </b>: {siteInfo[3]}<br />
-                  <b>Latitude:  </b> {siteInfo[4]}<br />
-                  <b>Longitude: </b> {siteInfo[5]}<br />
-                  <b>Township, Range, Section, Meridian:  </b> {siteInfo[6]}<br />
-                  <b>USGS 7.5 min. map: </b> {siteInfo[7]}<br />*/
-      }
-                 
-
+    <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } isOpen={[isMenuOpen]}  width={menuMode} >
+     
+      
+      {getImages([originalImageLinks], [replicationImageLinks])}
+      {}
+      
       
     </Menu>
       
@@ -134,6 +183,7 @@ function handleClose(){
     />
 
        <LayersControl position="topright">
+        {
           <LayersControl.Overlay name="All Other Sites">
           <LayerGroup>
                     {allOtherSites.map(site => (
@@ -142,11 +192,11 @@ function handleClose(){
               position = {[site.Latitude, site.Longitude]}
               eventHandlers={{
                 click: (e) => {
-                  setMenuOpen(false);
+                  //setMenuOpen([false]);
                   console.log('marker clicked', site)
                   setRepLinks(["","","",""]); //resetting the links here in order to make sure images from previously clicked marker is not included.
                   setOrLinks(["","","",""]);
-                  //console.log('links all sites', originalImageLinks);
+                  //console.log('links all sites', originalImageLinks[0] !== '');
                   //console.log('is menu open',isMenuOpen);
                   //setMenuOpen(true);
                   //setMenuOpen(false);
@@ -159,6 +209,7 @@ function handleClose(){
                   //map.([site.Latitude, site.Longitude])
                   //console.log(mapCenter);
                   //console.log(isMenuOpen);
+                  //console.log('links all sites', originalImageLinks);
                 },
               }}>
                 <Popup>
@@ -177,6 +228,7 @@ function handleClose(){
             ))}    
             </LayerGroup>
           </LayersControl.Overlay>
+          }
           <LayersControl.Overlay checked name="Replicated Sites">
               <LayerGroup>
                     {recreatedSites.map(recSite => (
@@ -206,8 +258,10 @@ function handleClose(){
                   //console.log('orig',tempOriginal);
                   setRepLinks(tempReplication);
                   setOrLinks(tempOriginal);
-                  setMenuMode('60%');
+                  setMenuMode('50%');
                   setMenuOpen(true);
+                  //console.log('links', getImages(originalImageLinks, replicationImageLinks));
+                  //console.log(getImages([originalImageLinks], [replicationImageLinks]));
 
                   
                   
@@ -222,7 +276,7 @@ function handleClose(){
 
                 },
               }}>
-                <Popup class="imageInfo">
+                <Popup className="imageInfo">
                 
                 <div className="sidebar">
                   <b>Site Name: </b> {recSite.SiteName}<br />
@@ -233,7 +287,6 @@ function handleClose(){
                   <b>Longitude: </b> {recSite.Longitude}<br />
                   <b>Township, Range, Section, Meridian:  </b> {recSite.TRSM}<br />
                   <b>USGS 7.5 min. map: </b> {recSite.USGS75Min}<br />
-                  
                 </div>
                 
                 
