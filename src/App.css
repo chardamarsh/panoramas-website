@@ -122,3 +122,18 @@
 }
 
 /*Menu and Carousel Settings*/
+
+
+
+
+.fullscreen-enabled .panoimage{
+  height:50vh;
+  width:auto;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.fullscreen-enabled .transform-component-module_wrapper__1_Fgj {
+  margin-left:auto !important;
+  margin-right:auto !important;
+}

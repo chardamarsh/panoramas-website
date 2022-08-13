@@ -1,4 +1,4 @@
-import React, { useState, setState, useEffect, useRef, useLayoutEffect, Component } from 'react';
+import React, { useState, setState, useEffect, useRef, useLayoutEffect, Component, useCallback } from 'react';
 
 import './App.css';
 import './menuStyle.css';
@@ -22,6 +22,8 @@ import { slide as Menu } from 'react-burger-menu';
 //import panzoom from 'panzoom';
 
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 
 import siteList from './resources/Panorama-sites-list-updated.json';
@@ -58,6 +60,10 @@ const [menuMode, setMenuMode] = useState('0%') // changes sidebar sliding length
 //const[mapCenter, setMapCenter] = useState([45.60, -125.38])
 //const map = useMap();
 
+
+const handle = useFullScreenHandle();
+
+
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -89,12 +95,12 @@ const getImages = ([orlink], [replink]) => {
       images.push(
      //<React.Fragment>   
       <div className="carouselelement">
-        <TransformWrapper>
+        <TransformWrapper wrapperStyle="panzoomimg">
           <TransformComponent>
             <img className ="panoimage" src={orlink[i]} alt="originalpanorama"/>
           </TransformComponent>
         </TransformWrapper>
-        <TransformWrapper>
+        <TransformWrapper wrapperStyle="panzoomimg">
           <TransformComponent>
             <img className ="panoimage" src={replink[i]} alt="originalpanorama"/>
           </TransformComponent>
@@ -104,11 +110,15 @@ const getImages = ([orlink], [replink]) => {
       );
   }
   return (
-    <Carousel responsive={responsive} draggable={false} partialVisible={false}>
-      {images}
-    </Carousel>
+    
+      <Carousel responsive={responsive} draggable={false} partialVisible={false}>
+        {images}
+      </Carousel>
+    
   );
 }
+
+
 
 return;
 };
@@ -178,11 +188,14 @@ function displayGallery([orLinkList], [repLinkList]) {
     <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } isOpen={isMenuOpen} onOpen={handleIsOpen}
     onClose={handleIsOpen} width={menuMode} >
      
-      <button onClick={() => setMenuMode('100%')}>Expand</button>
-      <button onClick={() => setMenuMode('50%')}>Retract</button>
+      <div>     
+      <button onClick={handle.enter}>Fullscreen</button>
+      </div>
+      <div className="fullscreencontainer">
+      <FullScreen handle={handle}>
       {getImages([originalImageLinks], [replicationImageLinks])}
-      
-      
+      </FullScreen>
+      </div>
       
     </Menu>
       
