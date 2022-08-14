@@ -71,8 +71,14 @@
 }
 
 .infoLinks{
-  margin-right: 7vw;
+  padding:0px !important;
 }
+
+.infoLinks div{
+  border-style:none none none solid;
+  border-color: #f2f2f2;
+}
+
 
 .infoLinks a{
   font-size: 1.8vh;
@@ -82,6 +88,12 @@
 
 .infoLinks div:hover{
   background-color: rgb(82, 82, 82);
+}
+
+.infoLinks p{
+  
+  margin:2px;
+  font-size:1.2vh;
 }
 
 .createdby{
@@ -126,11 +138,12 @@
   color: white;
 }
 
-/*Menu and Carousel Settings*/
+.transform-component-module_content__2jYgh{
+  cursor:move;
+}
 
 
-
-
+/*fullscreen settings*/
 .fullscreen-enabled .panoimage{
   height:50vh;
   width:auto;
@@ -149,7 +162,51 @@
   margin-top:auto !important;
 }
 
+.fullscreen-enabled .carouselelement-single {
+  margin-top: 12vh;
+}
+
 .fullscreen-enabled .panzoom-single{
   width:100vw;
   height:100vh;
+}
+
+.enterfullscreen{
+
+  background-color: #272727; /* Green */
+  border: none;
+  color: white;
+  padding: 1vh;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 2vh;
+  cursor:pointer;
+}
+
+.enterfullscreen:hover{
+  opacity:0.8;
+}
+
+.exitfullscreen{
+  visibility: hidden;
+  position:absolute;
+}
+
+.exitfullscreen:hover{
+  opacity: 0.7;
+  cursor:pointer;
+}
+
+.fullscreen-enabled .exitfullscreen{
+  position:absolute;
+  visibility: visible;
+  top:0px;
+  right:0px;
+  font-size:2vw;
+  background-color:#00000000;
+  margin:1vw;
+  border:none;
+  color:white;
+  text-decoration:none;
 }

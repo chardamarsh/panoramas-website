@@ -939,9 +939,9 @@
    "USGS75Min": "Wolf Peak, OR",
    "Photographer": "SNYDER",
    "TakenOn": "3/23/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/59/",
+   "repDirections": "N SE SW",
+   "orDirections": "N SE SW"
  },
  {
    "id": 60,
@@ -1243,9 +1243,9 @@
    "USGS75Min": "Springer Mountain, OR",
    "Photographer": "_",
    "TakenOn": "9/18/1936",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/78/",
+   "repDirections": "N SW",
+   "orDirections": "N SW"
  },
  {
    "id": 79,
@@ -2155,9 +2155,9 @@
    "USGS75Min": "Cashmere, WA",
    "Photographer": "A.A.",
    "TakenOn": "8/23/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/135/",
+   "repDirections": "N SE SW",
+   "orDirections": "N SE SW"
  },
  {
    "id": 136,
@@ -2497,7 +2497,7 @@
  },
  {
    "id": 157,
-   "SiteName": "Cannibal",
+   "SiteName": "Cannibal Mountain",
    "Forest": "Siuslaw",
    "County": "Lincoln, OR",
    "ElevationFeet": 1946,
@@ -2507,9 +2507,9 @@
    "USGS75Min": "Cannibal Mountain, OR",
    "Photographer": "_",
    "TakenOn": "9/18/1936",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/157/",
+   "repDirections": "SW",
+   "orDirections": "SW"
  },
  {
    "id": 158,

@@ -95,12 +95,15 @@ const getImages = ([orlink], [replink]) => {
           images.push(
         //<React.Fragment>   
           <div className="carouselelement">
-            <TransformWrapper wrapperStyle="panzoomimg">
+            
+            <TransformWrapper>
+            
               <TransformComponent>
                 <img className ="panoimage" src={orlink[i]} alt="originalpanorama"/>
               </TransformComponent>
             </TransformWrapper>
-            <TransformWrapper wrapperStyle="panzoomimg">
+            <TransformWrapper>
+            
               <TransformComponent>
                 <img className ="panoimage" src={replink[i]} alt="originalpanorama"/>
               </TransformComponent>
@@ -114,8 +117,9 @@ const getImages = ([orlink], [replink]) => {
           for(let i=orlink.length-1; i>replink.length-1; i--)
           {
             images.push(
-            <div className="carouselelement-single">
-              <TransformWrapper wrapperStyle="panzoomsingle">
+            <div className="carouselelement-single">  
+              <TransformWrapper>
+              
               <TransformComponent>
                 <img className ="panoimageOriginal" src={orlink[i]} alt="originalpanorama"/>
               </TransformComponent>
@@ -127,6 +131,7 @@ const getImages = ([orlink], [replink]) => {
       return (
         
           <Carousel responsive={responsive} draggable={false} partialVisible={false}>
+            
             {images}
           </Carousel>
         
@@ -151,7 +156,7 @@ else if(orlink[0] !=='' && replink[0] ==='') //site only has original images.
         }
 
         return(
-
+          
           <Carousel responsive={responsive} draggable={false} partialVisible={false}>
             {images}
           </Carousel>
@@ -208,14 +213,20 @@ function displayGallery([orLinkList], [repLinkList]) {
         <div>
           <a href="https://www.wildlandnw.net/osborne-panoramas-historic-and-modern" target="_blank" rel="noreferrer">More Information</a>
         </div>
+      </div>
+      <div className="infoLinks">
         <div>
-          <a href="#contact">Contact</a>
+          <a href="https://www.jfmarshall.com/" target="_blank" rel="noreferrer">
+            <p>Photo Replications By</p>
+            <p>John F. Marshall</p>
+          </a>
         </div>
       </div>
         <div className="createdby">
-          <p>Created By</p>
+          <p>Website By</p>
           <p>Charles Marshall</p>
         </div>
+        
         <div className="socialicons">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
           <a href="https://www.linkedin.com/in/charles-marshall-56ba81204/" target="_blank" rel="noreferrer" className="fa fa-linkedin"></a>
@@ -229,11 +240,13 @@ function displayGallery([orLinkList], [repLinkList]) {
     onClose={handleIsOpen} width={menuMode} >
      
       <div>     
-      <button onClick={handle.enter}>Fullscreen</button>
+      <button className="enterfullscreen" onClick={handle.enter}>Fullscreen</button>
       </div>
       <div className="fullscreencontainer">
       <FullScreen handle={handle}>
+      
       {getImages([originalImageLinks], [replicationImageLinks])}
+      <button className="exitfullscreen" onClick={handle.exit}>x</button>
       </FullScreen>
       </div>
       

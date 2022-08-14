@@ -44,7 +44,7 @@
   /* General sidebar styles */
   .bm-menu {
     background: rgb(73, 73, 73);
-    padding: 2.5em 1.5em 0;
+    padding: 2vh 1.5vw 0;
     font-size: 1.15em;
   }
   
@@ -57,6 +57,7 @@
   .bm-item-list {
     color: #b8b7ad;
     padding: 0.8em;
+    margin-top:10vh;
   }
   
   /* Individual item */
