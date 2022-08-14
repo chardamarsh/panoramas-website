@@ -8,13 +8,13 @@ The historical photographs included on this website were scanned by John Marshal
 
 This site is currently under development. More panorama replication sites will be added as time progresses.
 
-##Using this website
+## Using this website
 
 To use this website, simply click on a marker on the map to view site information and the photographs associated with said site. Images can be panned and zoomed using the mouse in both the in-picture and fullscreen views.
 
 In the upper right hand corner of the map, you can select between two layers: Replicated Sites and All Other Sites. Note that some of the sites included in the 'All Other Sites' do have replication images associated with them, but the photos have not formatted for the website yet.
 
-###Current Issues
+### Current Issues
 
 -If an image appears to have moved out of frame after exiting fullscreen mode, use the mouse scroll wheel to zoom out the image. This will reset the image to the correct position.
 
