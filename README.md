@@ -1,4 +1,4 @@
-# osborne-panoramas.org
+# [osborne-panoramas.org](https://www.osborne-panoramas.org/)
 
 This project was created to display the Osborne Panoramas and their modern-day replications created by John F. Marshall. The Osborne Panoramas are a collection of photos produced by the U.S. Forest Service in the 1930's with the purpose of improving fire suppression information for lookouts and ranger stations. The collection of photos include ~1000 sites located on Forest Service lands in Washington and Oregon.
 
