@@ -15,6 +15,11 @@
   height:auto;
 }
 
+.panoimageOriginal{
+  width:100%;
+  height:auto;
+}
+
 /*Header settings*/
 
 
@@ -133,7 +138,18 @@
   margin-right:auto;
 }
 
+.fullscreen-enabled .panoimageOriginal{
+  width:100%;
+  height:auto;
+}
+
 .fullscreen-enabled .transform-component-module_wrapper__1_Fgj {
   margin-left:auto !important;
   margin-right:auto !important;
+  margin-top:auto !important;
+}
+
+.fullscreen-enabled .panzoom-single{
+  width:100vw;
+  height:100vh;
 }

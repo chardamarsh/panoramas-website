@@ -26,7 +26,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 
-import siteList from './resources/Panorama-sites-list-updated.json';
+import siteList from './resources/Panorama-sites-list-updated3.json';
 import cameraicon from './resources/thumbnail_Osborne.png';
 
 
@@ -34,11 +34,11 @@ Amplify.configure(awsconfig);
 
 function App() {
 
-const recreatedSites = siteList.filter(siteList => siteList.imgRecreated !== "");
-const allOtherSites = siteList.filter(siteList => siteList.Directions ==="")
+const recreatedSites = siteList.filter(siteList => siteList.repDirections !== "");
+const allOtherSites = siteList.filter(siteList => siteList.imgFolder ==="")
 //const originalSites = siteList.filter(siteList => siteList.imgOriginal !== "");
 //const unscannedSites = siteList.filter(siteList => siteList.imgOriginal === "");
-const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.us-west-1.amazonaws.com/panoramaimages";
+const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.us-west-1.amazonaws.com/panoramaimages-marked";
 //console.log(recreatedSites);
 //console.log(originalSites);
 
@@ -87,40 +87,80 @@ const responsive = {
 
 
 const getImages = ([orlink], [replink]) => {
-  if(orlink[0] !=='')
+  if(orlink[0] !=='' && replink[0] !=='') //site has both original and replication images.
   {
   
-  const images = [];
-  for (let i = 0; i < orlink.length; i++) {
-      images.push(
-     //<React.Fragment>   
-      <div className="carouselelement">
-        <TransformWrapper wrapperStyle="panzoomimg">
-          <TransformComponent>
-            <img className ="panoimage" src={orlink[i]} alt="originalpanorama"/>
-          </TransformComponent>
-        </TransformWrapper>
-        <TransformWrapper wrapperStyle="panzoomimg">
-          <TransformComponent>
-            <img className ="panoimage" src={replink[i]} alt="originalpanorama"/>
-          </TransformComponent>
-        </TransformWrapper>
-      </div>
-      //</React.Fragment>       
+      const images = [];
+      for (let i = 0; i < replink.length; i++) {
+          images.push(
+        //<React.Fragment>   
+          <div className="carouselelement">
+            <TransformWrapper wrapperStyle="panzoomimg">
+              <TransformComponent>
+                <img className ="panoimage" src={orlink[i]} alt="originalpanorama"/>
+              </TransformComponent>
+            </TransformWrapper>
+            <TransformWrapper wrapperStyle="panzoomimg">
+              <TransformComponent>
+                <img className ="panoimage" src={replink[i]} alt="originalpanorama"/>
+              </TransformComponent>
+            </TransformWrapper>
+          </div>
+          //</React.Fragment>       
+          );
+          }
+        if(orlink.length > replink.length) // Site has some directions which were not replicated.
+        {
+          for(let i=orlink.length-1; i>replink.length-1; i--)
+          {
+            images.push(
+            <div className="carouselelement-single">
+              <TransformWrapper wrapperStyle="panzoomsingle">
+              <TransformComponent>
+                <img className ="panoimageOriginal" src={orlink[i]} alt="originalpanorama"/>
+              </TransformComponent>
+            </TransformWrapper>
+            </div>
+            );
+          }
+        }
+      return (
+        
+          <Carousel responsive={responsive} draggable={false} partialVisible={false}>
+            {images}
+          </Carousel>
+        
       );
-  }
-  return (
-    
-      <Carousel responsive={responsive} draggable={false} partialVisible={false}>
-        {images}
-      </Carousel>
-    
-  );
+
+}
+else if(orlink[0] !=='' && replink[0] ==='') //site only has original images.
+{
+  const images = [];
+      for (let i = 0; i < replink.length; i++) {
+          images.push(
+
+            <div className="carouselelement-single">
+              <TransformWrapper wrapperStyle="panzoomsingle">
+              <TransformComponent>
+                <img className ="panoimageOriginal" src={orlink[i]} alt="originalpanorama"/>
+              </TransformComponent>
+            </TransformWrapper>
+            </div>
+
+          )
+        }
+
+        return(
+
+          <Carousel responsive={responsive} draggable={false} partialVisible={false}>
+            {images}
+          </Carousel>
+        )
 }
 
-
-
+else{
 return;
+}
 };
 
 
@@ -263,15 +303,18 @@ function displayGallery([orLinkList], [repLinkList]) {
               eventHandlers={{
                 click: (e) => {
                   
-                  var tempOriginal = recSite.Directions.split(" ");
-                  var tempReplication = recSite.Directions.split(" ");
-                  //console.log(tempReplication);
-                  //console.log(tempOriginal);
+                  var tempOriginal = recSite.orDirections.split(" ");
+                  var tempReplication = recSite.repDirections.split(" ");
+                  console.log(tempReplication);
+                  console.log(tempOriginal);
                   var numLinks = tempOriginal.length;
-                  for(var i = 0; i < numLinks; i++)
+                  for(var i = 0; i < tempReplication.length; i++)
                   {
-                    tempOriginal[i] = imgSource + recSite.imgRecreated + tempOriginal[i] + '/' + tempOriginal[i] + '-Original.jpg';
-                    tempReplication[i] = imgSource + recSite.imgRecreated + tempReplication[i] + '/' + tempReplication[i] + '-Replication.jpg';
+                    tempReplication[i] = imgSource + recSite.imgFolder + tempReplication[i] + '/' + tempReplication[i] + '-Replication.jpg';
+                  }
+                  for(var i = 0; i < tempOriginal.length; i++)
+                  {
+                    tempOriginal[i] = imgSource + recSite.imgFolder + tempOriginal[i] + '/' + tempOriginal[i] + '-Original.jpg';
                   }
                   
                   //console.log('is menu open',isMenuOpen);
@@ -279,8 +322,8 @@ function displayGallery([orLinkList], [repLinkList]) {
                   //setMenuOpen(false);
                   //console.log(isMenuOpen, 'why close');
                   //setMenuMode('40%');
-                  //console.log('rep',tempReplication);
-                  //console.log('orig',tempOriginal);
+                  console.log('rep',tempReplication);
+                  console.log('orig',tempOriginal);
                   setRepLinks(tempReplication);
                   setOrLinks(tempOriginal);
                   setMenuMode('50%');
