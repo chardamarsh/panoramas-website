@@ -22,7 +22,10 @@
 
 /*Header settings*/
 
-
+strong {
+  font-size:1.5vh;
+  font-weight:900;
+}
 
 .header{
   display: flex;

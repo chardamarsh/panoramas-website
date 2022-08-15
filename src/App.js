@@ -211,14 +211,14 @@ function displayGallery([orLinkList], [repLinkList]) {
       <div className="header-right">
       <div className="infoLinks">
         <div>
-          <a href="https://www.wildlandnw.net/osborne-panoramas-historic-and-modern" target="_blank" rel="noreferrer">More Information</a>
+          <a href="https://www.wildlandnw.net/osborne-panoramas-historic-and-modern" target="_blank" rel="noreferrer">More Information <strong>↗</strong></a>
         </div>
       </div>
       <div className="infoLinks">
         <div>
           <a href="https://www.jfmarshall.com/" target="_blank" rel="noreferrer">
             <p>Photo Replications By</p>
-            <p>John F. Marshall</p>
+            <p>John F. Marshall <strong>↗</strong></p>
           </a>
         </div>
       </div>
