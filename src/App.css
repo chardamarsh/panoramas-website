@@ -141,6 +141,11 @@ strong {
   color: white;
 }
 
+
+.controls{
+  text-align:center;
+}
+
 .transform-component-module_content__2jYgh{
   cursor:move;
 }

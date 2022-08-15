@@ -7,7 +7,7 @@ import { Amplify } from 'aws-amplify';
 import awsconfig from './aws-exports';
 
 
-import { MapContainer, TileLayer, useMap, Marker, Popup, setCenter } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, Marker, Popup, setCenter, Tooltip } from 'react-leaflet';
 import {LayersControl} from 'react-leaflet/LayersControl';
 import { LayerGroup } from 'react-leaflet/LayerGroup';
 //import { FeatureGroup } from 'react-leaflet/FeatureGroup';
@@ -237,7 +237,7 @@ function displayGallery([orLinkList], [repLinkList]) {
       
 
     <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } isOpen={isMenuOpen} onOpen={handleIsOpen}
-    onClose={handleIsOpen} width={menuMode} >
+    onClose={handleIsOpen} width={menuMode} noOverlay>
      
       <div>     
       <button className="enterfullscreen" onClick={handle.enter}>Fullscreen</button>
@@ -248,6 +248,10 @@ function displayGallery([orLinkList], [repLinkList]) {
       {getImages([originalImageLinks], [replicationImageLinks])}
       <button className="exitfullscreen" onClick={handle.exit}>x</button>
       </FullScreen>
+      </div>
+      <div className="controls">
+        <p>You can use your mouse or touchscreen to pan and zoom these images.</p>
+        
       </div>
       
     </Menu>
@@ -271,13 +275,13 @@ function displayGallery([orLinkList], [repLinkList]) {
               eventHandlers={{
                 click: (e) => {
                   //setMenuOpen([false]);
-                  console.log('marker clicked', site)
+                  //console.log('marker clicked', site)
                   setRepLinks(["","","",""]); //resetting the links here in order to make sure images from previously clicked marker is not included.
                   setOrLinks(["","","",""]);
                   //console.log('links all sites', originalImageLinks[0] !== '');
                   //console.log('is menu open',isMenuOpen);
                   //setMenuOpen(true);
-                  //setMenuOpen(false);
+                  setMenuOpen(false);
                   //setMenuMode('0%');
                   
                   //setSiteInfo([site.SiteName, site.Forest, site.County, site.ElevationFeet, site.Latitude, site.Longitude, site.TRSM, site.USGS75Min]);
@@ -301,7 +305,8 @@ function displayGallery([orLinkList], [repLinkList]) {
                   <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
                   <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
                 </div>
-                </Popup> 
+                </Popup>
+                <Tooltip>{site.SiteName}</Tooltip>
               </Marker>
             ))}    
             </LayerGroup>
@@ -318,8 +323,8 @@ function displayGallery([orLinkList], [repLinkList]) {
                   
                   var tempOriginal = recSite.orDirections.split(" ");
                   var tempReplication = recSite.repDirections.split(" ");
-                  console.log(tempReplication);
-                  console.log(tempOriginal);
+                  //console.log(tempReplication);
+                  //console.log(tempOriginal);
                   var numLinks = tempOriginal.length;
                   for(var i = 0; i < tempReplication.length; i++)
                   {
@@ -335,8 +340,8 @@ function displayGallery([orLinkList], [repLinkList]) {
                   //setMenuOpen(false);
                   //console.log(isMenuOpen, 'why close');
                   //setMenuMode('40%');
-                  console.log('rep',tempReplication);
-                  console.log('orig',tempOriginal);
+                  //console.log('rep',tempReplication);
+                  //console.log('orig',tempOriginal);
                   setRepLinks(tempReplication);
                   setOrLinks(tempOriginal);
                   setMenuMode('50%');
@@ -372,7 +377,8 @@ function displayGallery([orLinkList], [repLinkList]) {
                 
                 
                 
-                </Popup> 
+                </Popup>
+                <Tooltip>{recSite.SiteName}</Tooltip>
               </Marker>
             ))}    
             </LayerGroup>
