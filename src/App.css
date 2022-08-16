@@ -160,6 +160,21 @@ strong {
  
 }
 
+.hiddenbutton{
+  visibility: hidden;
+  position: absolute;
+}
+
+.hiddenbuttonenter{
+  visibility: hidden;
+  position:absolute;
+}
+
+.hiddenbuttonexit{
+  visibility: hidden;
+  position:absolute;
+}
+
 
 /*fullscreen settings*/
 .fullscreen-enabled .panoimage{

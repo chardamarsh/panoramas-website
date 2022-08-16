@@ -18,7 +18,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 import { slide as Menu } from 'react-burger-menu';
 
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { TransformWrapper, TransformComponent, ReactZoomPanPinchRef } from "react-zoom-pan-pinch";
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
@@ -78,6 +78,12 @@ const responsive = {
 
 
 
+const hiddenButtonRef = useRef(null);
+const hiddenButtonRef2 =useRef(null);
+//const {resetButton} = () =>{ hiddenButtonRef.current.resetTransform();
+
+
+
 const getImages = ([orlink], [replink]) => {
   if(orlink[0] !=='' && replink[0] !=='') //site has both original and replication images.
   {
@@ -89,16 +95,24 @@ const getImages = ([orlink], [replink]) => {
           <div className="carouselelement">
             
             <TransformWrapper>
-            
+            {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+              <>
+              <button className="hiddenbutton" ref={hiddenButtonRef} onClick={()=>resetTransform()}></button>
               <TransformComponent>
                 <img className ="panoimage" src={orlink[i]} alt="originalpanorama"/>
               </TransformComponent>
+              </>
+            )}
             </TransformWrapper>
             <TransformWrapper>
-            
-              <TransformComponent contentStyle={document.getElementByClassName}>
+            {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+              <>
+              <button className="hiddenbutton" ref={hiddenButtonRef} onClick={()=>resetTransform()}></button>
+              <TransformComponent>
                 <img className ="panoimage" src={replink[i]} alt="originalpanorama"/>
               </TransformComponent>
+              </>
+            )}
             </TransformWrapper>
           </div>
           //</React.Fragment>       
@@ -111,10 +125,14 @@ const getImages = ([orlink], [replink]) => {
             images.push(
             <div className="carouselelement-single">  
               <TransformWrapper>
-              
+              {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+              <>
+              <button className="hiddenbutton" ref={hiddenButtonRef} onClick={()=>resetTransform()}></button>
               <TransformComponent>
                 <img className ="panoimageOriginal" src={orlink[i]} alt="originalpanorama"/>
               </TransformComponent>
+              </>
+              )}
             </TransformWrapper>
             </div>
             );
@@ -122,7 +140,7 @@ const getImages = ([orlink], [replink]) => {
         }
       return (
         
-          <Carousel responsive={responsive} draggable={false} partialVisible={false}>
+          <Carousel responsive={responsive} draggable={false} partialVisible={false} infinite={true} arrows={images.length > 1}>
             
             {images}
           </Carousel>
@@ -149,7 +167,7 @@ else if(orlink[0] !=='' && replink[0] ==='') //site only has original images.
 
         return(
           
-          <Carousel responsive={responsive} draggable={false} partialVisible={false}>
+          <Carousel responsive={responsive} draggable={false} partialVisible={false} infinite={true} arrows={images.length > 1}>
             {images}
           </Carousel>
         )
@@ -159,6 +177,41 @@ else{
 return;
 }
 };
+
+
+
+const resetZoomPanEnter= () =>
+{
+  //handle.enter;
+  //hiddenButtonRef.current.click();
+  //hiddenButtonRef2.current.click();
+  var exitElements = document.querySelector('.hiddenbuttonenter')
+  exitElements.click();
+  var elements = document.querySelectorAll('.hiddenbutton')
+  for(let i = 0; i < elements.length; i++)
+  {
+  elements[i].click();
+  }
+}
+
+const resetZoomPanExit= () =>
+{
+  //handle.exit;
+  var exitElements = document.querySelector('.hiddenbuttonexit')
+  exitElements.click();
+  var elements = document.querySelectorAll('.hiddenbutton')
+  for(let i = 0; i < elements.length; i++)
+  {
+  elements[i].click();
+  }
+}
+
+
+
+
+
+
+
 
 
   return (
@@ -207,13 +260,15 @@ return;
     onClose={handleIsOpen} width={menuMode} noOverlay>
      
       <div>     
-      <button className="enterfullscreen" onClick={handle.enter}>Fullscreen</button>
+      <button className="enterfullscreen" onClick={resetZoomPanEnter}>Fullscreen</button>
+      <button className="hiddenbuttonenter" onClick={handle.enter}></button>
       </div>
       <div className="fullscreencontainer">
       <FullScreen handle={handle}>
       
       {getImages([originalImageLinks], [replicationImageLinks])}
-      <button className="exitfullscreen" onClick={handle.exit}>x</button>
+      <button className="exitfullscreen" onClick={resetZoomPanExit}>x</button>
+      <button className="hiddenbuttonexit" onClick={handle.exit}></button>
       </FullScreen>
       </div>
       <div className="controls">
@@ -222,7 +277,19 @@ return;
       </div>
       
     </Menu>
-      
+
+
+
+
+
+
+
+
+
+
+
+
+
       <main id="page-wrap"> 
   <MapContainer center={[45.60, -125.38]} zoom={6} scrollWheelZoom={true} zoomControl={false}>
   
