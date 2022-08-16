@@ -10,8 +10,6 @@ import awsconfig from './aws-exports';
 import { MapContainer, TileLayer, useMap, Marker, Popup, setCenter, Tooltip } from 'react-leaflet';
 import {LayersControl} from 'react-leaflet/LayersControl';
 import { LayerGroup } from 'react-leaflet/LayerGroup';
-//import { FeatureGroup } from 'react-leaflet/FeatureGroup';
-//import L from 'leaflet';
 
 
 import Carousel from 'react-multi-carousel';
@@ -19,14 +17,13 @@ import 'react-multi-carousel/lib/styles.css';
 
 
 import { slide as Menu } from 'react-burger-menu';
-//import panzoom from 'panzoom';
 
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 
 
-import siteList from './resources/Panorama-sites-list-updated3.json';
+import siteList from './resources/Panorama-sites-list-updated.json';
 import cameraicon from './resources/thumbnail_Osborne.png';
 
 
@@ -34,13 +31,11 @@ Amplify.configure(awsconfig);
 
 function App() {
 
-const recreatedSites = siteList.filter(siteList => siteList.repDirections !== "");
+const recreatedSites = siteList.filter(siteList => siteList.repDirections !== "");// Sites with original photos only and unscanned sites to be added to filter list.
 const allOtherSites = siteList.filter(siteList => siteList.imgFolder ==="")
-//const originalSites = siteList.filter(siteList => siteList.imgOriginal !== "");
-//const unscannedSites = siteList.filter(siteList => siteList.imgOriginal === "");
+
 const imgSource = "https://panoramas-website-storage-f38d7055203555-staging.s3.us-west-1.amazonaws.com/panoramaimages-marked";
-//console.log(recreatedSites);
-//console.log(originalSites);
+
 
 const [originalImageLinks, setOrLinks] = useState(["","","",""])
 const [replicationImageLinks, setRepLinks] = useState(["","","",""]) //array length may need to change if some sites have more than 4 directions.
@@ -56,9 +51,7 @@ const closeSideBar = () => {
 
 
 const [menuMode, setMenuMode] = useState('0%') // changes sidebar sliding length based on if the site has photos.
-//const [siteInfo, setSiteInfo] = useState(["","","","","","","",""]) // used to display site information in the side menu.
-//const[mapCenter, setMapCenter] = useState([45.60, -125.38])
-//const map = useMap();
+
 
 
 const handle = useFullScreenHandle();
@@ -66,7 +59,6 @@ const handle = useFullScreenHandle();
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 1
   },
@@ -104,7 +96,7 @@ const getImages = ([orlink], [replink]) => {
             </TransformWrapper>
             <TransformWrapper>
             
-              <TransformComponent>
+              <TransformComponent contentStyle={document.getElementByClassName}>
                 <img className ="panoimage" src={replink[i]} alt="originalpanorama"/>
               </TransformComponent>
             </TransformWrapper>
@@ -169,31 +161,6 @@ return;
 };
 
 
-/*
-function displayGallery([orLinkList], [repLinkList]) {
-  if (orLinkList[0] !== '') {
-    return (
-          
-          <React.Fragment>
-          <div className="originalimgs">
-           {orLinkList.map(orLinks =>(
-           <img src={orLinks} alt="originalimg"/>))
-          } 
-          </div>
-          <div className="replicationimgs">
-           {repLinkList.map(repLinks =>(
-           <img src={repLinks} alt="replicationimg"/>))
-          } 
-          </div>
-          </React.Fragment>
-         );
-          
-  }
-  return;
-}*/
-
-
-
   return (
 
   
@@ -217,8 +184,8 @@ function displayGallery([orLinkList], [repLinkList]) {
       <div className="infoLinks">
         <div>
           <a href="https://www.jfmarshall.com/" target="_blank" rel="noreferrer">
-            <p>Photo Replications By</p>
-            <p>John F. Marshall <strong>↗</strong></p>
+            <p>Photo Replications</p>
+            <p>By John F. Marshall <strong>↗</strong></p>
           </a>
         </div>
       </div>
@@ -274,24 +241,11 @@ function displayGallery([orLinkList], [repLinkList]) {
               position = {[site.Latitude, site.Longitude]}
               eventHandlers={{
                 click: (e) => {
-                  //setMenuOpen([false]);
-                  //console.log('marker clicked', site)
+               
                   setRepLinks(["","","",""]); //resetting the links here in order to make sure images from previously clicked marker is not included.
                   setOrLinks(["","","",""]);
-                  //console.log('links all sites', originalImageLinks[0] !== '');
-                  //console.log('is menu open',isMenuOpen);
-                  //setMenuOpen(true);
                   setMenuOpen(false);
-                  //setMenuMode('0%');
-                  
-                  //setSiteInfo([site.SiteName, site.Forest, site.County, site.ElevationFeet, site.Latitude, site.Longitude, site.TRSM, site.USGS75Min]);
-                  //setSiteInfo([site.id, site.Forest, site.County, site.ElevationFeet, site.Latitude, site.Longitude, site.TRSM, site.USGS75Min]);
-                  //console.log('site info', siteInfo[0]);
-                  //setMapCenter([site.Latitude, site.Longitude]);
-                  //map.([site.Latitude, site.Longitude])
-                  //console.log(mapCenter);
-                  //console.log(isMenuOpen);
-                  //console.log('links all sites', originalImageLinks);
+                 
                 },
               }}>
                 <Popup>
@@ -319,12 +273,11 @@ function displayGallery([orLinkList], [repLinkList]) {
               key = {recSite.id}
               position = {[recSite.Latitude, recSite.Longitude]}
               eventHandlers={{
-                click: (e) => {
+                click: (e) => { //Generates image source links when a marker is clicked.
                   
                   var tempOriginal = recSite.orDirections.split(" ");
                   var tempReplication = recSite.repDirections.split(" ");
-                  //console.log(tempReplication);
-                  //console.log(tempOriginal);
+                 
                   var numLinks = tempOriginal.length;
                   for(var i = 0; i < tempReplication.length; i++)
                   {
@@ -335,31 +288,11 @@ function displayGallery([orLinkList], [repLinkList]) {
                     tempOriginal[i] = imgSource + recSite.imgFolder + tempOriginal[i] + '/' + tempOriginal[i] + '-Original.jpg';
                   }
                   
-                  //console.log('is menu open',isMenuOpen);
-                  //setMenuOpen(true);
-                  //setMenuOpen(false);
-                  //console.log(isMenuOpen, 'why close');
-                  //setMenuMode('40%');
-                  //console.log('rep',tempReplication);
-                  //console.log('orig',tempOriginal);
                   setRepLinks(tempReplication);
                   setOrLinks(tempOriginal);
                   setMenuMode('50%');
                   setMenuOpen(true);
-                  //console.log('links', getImages(originalImageLinks, replicationImageLinks));
-                  //console.log(getImages([originalImageLinks], [replicationImageLinks]));
-
                   
-                  
-                  
-                  
-                  //setSiteInfo([recSite.SiteName, recSite.Forest, recSite.County, recSite.ElevationFeet, recSite.Latitude, recSite.Longitude, recSite.TRSM, recSite.USGS75Min]);
-                  //console.log('site info', siteInfo[0]);
-                  //setMapCenter([recSite.Latitude, recSite.Longitude]);
-                  //map.setCenter([recSite.Latitude, recSite.Longitude])
-                  //console.log(mapCenter);
-                  
-
                 },
               }}>
                 <Popup className="imageInfo">
@@ -383,7 +316,13 @@ function displayGallery([orLinkList], [repLinkList]) {
             ))}    
             </LayerGroup>
           </LayersControl.Overlay>
-          {/*<LayersControl.Overlay name="Sites With Only Historical Images">
+          { 
+          
+          
+          //**********************************To be added - Unscanned Panorama Sites and Sites with only original photos.******************************
+          
+          
+          /*<LayersControl.Overlay name="Sites With Only Historical Images">
               <LayerGroup>
                     {originalSites.map(orSite => (
               <Marker
@@ -451,163 +390,3 @@ function displayGallery([orLinkList], [repLinkList]) {
 }
 
 export default App;
-
-
-/*import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { listNotes } from './graphql/queries';
-import { createNote as createNoteMutation, deleteNote as deleteNoteMutation } from './graphql/mutations';
-
-const initialFormState = { name: '', description: '' }
-
-function App() {
-  const [notes, setNotes] = useState([]);
-  const [formData, setFormData] = useState(initialFormState);
-
-  useEffect(() => {
-    fetchNotes();
-  }, []);
-
-  async function fetchNotes() {
-    const apiData = await API.graphql({ query: listNotes });
-    setNotes(apiData.data.listNotes.items);
-  }
-
-  async function createNote() {
-    if (!formData.name || !formData.description) return;
-    await API.graphql({ query: createNoteMutation, variables: { input: formData } });
-    setNotes([ ...notes, formData ]);
-    setFormData(initialFormState);
-  }
-
-  async function deleteNote({ id }) {
-    const newNotesArray = notes.filter(note => note.id !== id);
-    setNotes(newNotesArray);
-    await API.graphql({ query: deleteNoteMutation, variables: { input: { id } }});
-  }
-
-  return (
-    <div className="App">
-      <h1>My Notes App</h1>
-      <input
-        onChange={e => setFormData({ ...formData, 'name': e.target.value})}
-        placeholder="Note name"
-        value={formData.name}
-      />
-      <input
-        onChange={e => setFormData({ ...formData, 'description': e.target.value})}
-        placeholder="Note description"
-        value={formData.description}
-      />
-      <button onClick={createNote}>Create Note</button>
-      <div style={{marginBottom: 30}}>
-        {
-          notes.map(note => (
-            <div key={note.id || note.name}>
-              <h2>{note.name}</h2>
-              <p>{note.description}</p>
-              <button onClick={() => deleteNote(note)}>Delete note</button>
-            </div>
-          ))
-        }
-      </div>
-      <AmplifySignOut />
-    </div>
-  );
-}
-
-export default withAuthenticator(App);
-
-
-
-
-
-
-
-
-
-<LayersControl position="topright">
-      <LayersControl.Overlay name="All Sites">
-        {siteList.map(site => (
-        <Marker
-        key = {site.id}
-        position = {[site.Latitude, site.Longitude]}
-        eventHandlers={{
-          click: (e) => {
-            console.log('marker clicked', e)
-          },
-        }}>
-          <Popup>
-          <div className="sidebar">
-            <b>Site Name: </b> {site.SiteName}<br />
-            <b>Forest:  </b> {site.Forest}<br />
-            <b>County:  </b> {site.County}<br />
-            <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
-            <b>Latitude:  </b> {site.Latitude}<br />
-            <b>Longitude: </b> {site.Longitude}<br />
-            <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
-            <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
-          </div>
-          </Popup> 
-        </Marker>
-        ))}
-      </LayersControl.Overlay>
-      <LayersControl.Overlay checked name="Recreated Sites">
-        {recreatedSites.map(site => (
-        <Marker
-        key = {site.id}
-        position = {[site.Latitude, site.Longitude]}
-        eventHandlers={{
-          click: (e) => {
-            console.log('marker clicked', e)
-          },
-        }}>
-          <Popup>
-          <div className="sidebar">
-            <b>Site Name: </b> {site.SiteName}<br />
-            <b>Forest:  </b> {site.Forest}<br />
-            <b>County:  </b> {site.County}<br />
-            <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
-            <b>Latitude:  </b> {site.Latitude}<br />
-            <b>Longitude: </b> {site.Longitude}<br />
-            <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
-            <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
-          </div>
-          </Popup> 
-        </Marker>
-        ))}
-      </LayersControl.Overlay>
-      <LayersControl.Overlay name="Sites with Only Historical Images">
-        {originalSites.map(site => (
-          <Marker
-          key = {site.id}
-          position = {[site.Latitude, site.Longitude]}
-          eventHandlers={{
-            click: (e) => {
-              console.log('marker clicked', e)
-            },
-          }}>
-            <Popup>
-            <div className="sidebar">
-              <b>Site Name: </b> {site.SiteName}<br />
-              <b>Forest:  </b> {site.Forest}<br />
-              <b>County:  </b> {site.County}<br />
-              <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
-              <b>Latitude:  </b> {site.Latitude}<br />
-              <b>Longitude: </b> {site.Longitude}<br />
-              <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
-              <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
-            </div>
-            </Popup> 
-          </Marker>
-          ))}
-        </LayersControl.Overlay>
-        </LayersControl>
-
-
-
-
-
-
-
-
-*/
