@@ -2587,9 +2587,9 @@
    "USGS75Min": "Carpenter Mountain, OR",
    "Photographer": "MOE-SARLIN",
    "TakenOn": "9/11/1933",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/162/",
+   "repDirections": "SE N",
+   "orDirections": "SE N SW"
  },
  {
    "id": 163,
@@ -7275,9 +7275,9 @@
    "USGS75Min": "Wolf Peak, OR",
    "Photographer": "RITTENHOUSE",
    "TakenOn": "6/29/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/455/",
+   "repDirections": "NE",
+   "orDirections": "NE"
  },
  {
    "id": 456,
@@ -7963,9 +7963,9 @@
    "USGS75Min": "Lava Butte, OR",
    "Photographer": "ARNST-PARTY",
    "TakenOn": "6/15/1933",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/498/",
+   "repDirections": "SW N",
+   "orDirections": "SW N SE"
  },
  {
    "id": 499,
@@ -8875,9 +8875,9 @@
    "USGS75Min": "McCoy Peak, WA",
    "Photographer": "J.D.R.",
    "TakenOn": "7/16/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/555/",
+   "repDirections": "SW-Supp SW SE N",
+   "orDirections": "SW-Supp SW SE N"
  },
  {
    "id": 556,
@@ -14731,9 +14731,9 @@
    "USGS75Min": "Government Camp, OR",
    "Photographer": "RITTENHOUSE-SARLIN",
    "TakenOn": "10/26/1933",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/921/",
+   "repDirections": "N",
+   "orDirections": "N SE SW"
  },
  {
    "id": 922,

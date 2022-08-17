@@ -46,7 +46,7 @@ const handleIsOpen = () => {
 }
 
 const closeSideBar = () => {
-  setMenuOpen(false)
+  setMenuOpen(false);
 }
 
 
@@ -54,10 +54,10 @@ const [menuMode, setMenuMode] = useState('0%') // changes sidebar sliding length
 
 
 
-const handle = useFullScreenHandle();
+const handle = useFullScreenHandle(); //handle used to open and close fullscreen.
 
 
-const responsive = {
+const responsive = { //image carousel settings
   superLargeDesktop: {
     breakpoint: { max: 4000, min: 3000 },
     items: 1
@@ -78,9 +78,8 @@ const responsive = {
 
 
 
-const hiddenButtonRef = useRef(null);
-const hiddenButtonRef2 =useRef(null);
-//const {resetButton} = () =>{ hiddenButtonRef.current.resetTransform();
+const hiddenButtonRef = useRef(null); //hidden button refs used to reset photo pan/zoom when entering/exiting fullscreen.
+//const hiddenButtonRef2 =useRef(null);
 
 
 
@@ -139,11 +138,24 @@ const getImages = ([orlink], [replink]) => {
           }
         }
       return (
-        
-          <Carousel responsive={responsive} draggable={false} partialVisible={false} infinite={true} arrows={images.length > 1}>
-            
-            {images}
-          </Carousel>
+      <>
+      <div>     
+        <button className="enterfullscreen" onClick={resetZoomPanEnter}>Fullscreen</button>
+        <button className="hiddenbuttonenter" onClick={handle.enter}></button>
+        </div> 
+        <div className="fullscreencontainer">
+          <FullScreen handle={handle}>
+            <Carousel responsive={responsive} draggable={false} partialVisible={false} infinite={true} arrows={images.length > 1}>  
+              {images}
+            </Carousel>
+            <button className="exitfullscreen" onClick={resetZoomPanExit}>x</button>
+            <button className="hiddenbuttonexit" onClick={handle.exit}></button>
+          </FullScreen>
+        </div>
+        <div className="controls">
+          <p>You can use your mouse or touchscreen to pan and zoom these images.</p>  
+      </div>
+      </>
         
       );
 
@@ -166,14 +178,28 @@ else if(orlink[0] !=='' && replink[0] ==='') //site only has original images.
         }
 
         return(
-          
-          <Carousel responsive={responsive} draggable={false} partialVisible={false} infinite={true} arrows={images.length > 1}>
-            {images}
-          </Carousel>
+      <>
+        <div>     
+          <button className="enterfullscreen" onClick={resetZoomPanEnter}>Fullscreen</button>
+          <button className="hiddenbuttonenter" onClick={handle.enter}></button>
+        </div> 
+        <div className="fullscreencontainer">
+          <FullScreen handle={handle}>
+            <Carousel responsive={responsive} draggable={false} partialVisible={false} infinite={true} arrows={images.length > 1}>
+              {images}
+            </Carousel>
+            <button className="exitfullscreen" onClick={resetZoomPanExit}>x</button>
+            <button className="hiddenbuttonexit" onClick={handle.exit}></button>
+          </FullScreen>
+        </div>
+        <div className="controls">
+          <p>You can use your mouse or touchscreen to pan and zoom these images.</p>  
+        </div>
+      </>
         )
 }
 
-else{
+else{ //Site does not have any images associated with it.
 return;
 }
 };
@@ -182,12 +208,9 @@ return;
 
 const resetZoomPanEnter= () =>
 {
-  //handle.enter;
-  //hiddenButtonRef.current.click();
-  //hiddenButtonRef2.current.click();
-  var exitElements = document.querySelector('.hiddenbuttonenter')
-  exitElements.click();
-  var elements = document.querySelectorAll('.hiddenbutton')
+  var enterElements = document.querySelector('.hiddenbuttonenter')//Hidden button used to enter fullscreen.
+  enterElements.click();
+  var elements = document.querySelectorAll('.hiddenbutton')//activates hidden buttons connected to each photo in the photo carousel. Used to reset pan/zoom when entering fullscreen.
   for(let i = 0; i < elements.length; i++)
   {
   elements[i].click();
@@ -197,19 +220,55 @@ const resetZoomPanEnter= () =>
 const resetZoomPanExit= () =>
 {
   //handle.exit;
-  var exitElements = document.querySelector('.hiddenbuttonexit')
+  var exitElements = document.querySelector('.hiddenbuttonexit')//Hidden button used to exit fullscreen.
   exitElements.click();
-  var elements = document.querySelectorAll('.hiddenbutton')
+  var elements = document.querySelectorAll('.hiddenbutton')//activates hidden buttons connected to each photo in the photo carousel. Used to reset pan/zoom when entering fullscreen.
   for(let i = 0; i < elements.length; i++)
   {
   elements[i].click();
   }
 }
 
+/*const [showAbout, setAboutOpen] = useState(false);
 
+const openAbout= () =>
+{
+  setAboutOpen(true);
+}
 
+const aboutMenu= () => {
+if(showAbout === true)
+{ 
+  setMenuOpen(true);
+  setMenuMode('50%');
+return(
+<div className="aboutsite">
+  <p><b>The Osborne Panoramas</b> are a collection of 3,093 panoramic images taken from fire lookouts in Oregon and Washington, between 1929 and 1941,
+  using a specially designed camera. At each fire lookout, three pictures each encompassing a 120-degrees of angle were taken. The original 5 x 13 prints, shown here as digital files,
+  are housed at the National Archives and Records Administration in Seattle, WA.</p>
 
+<p>The initial aim of this website is to show replicated work, alongside the original Osborne Panoramas. Ultimately, the site may display all of the quality historic panoramas,
+  whether replicated or not. John Marshall was introduced to the Osborne Panoramas in 2010 by the U.S. Forest Service and the Pacific Northwest Research Station.
+  As of this writing Marshall has replicated over 200 panoramas with funding from a variety of entities, and independently.
+  Conventional tripod-based photography using a DSLR camera and panoramic head is the preferred method for replication. In places where fire towers no longer exist, or trees block the view,
+  unmanned-aerial-systems are deployed. The primary aim is to get an accurate match of the background. Height and position may result in an imperfect match of foreground.</p>
 
+<p><b>Technical Notes-</b>While the image quality seen here is quite good, files have been reduced in size to load rapidly on the web.
+ Historic images were scanned at 600 pixels per inch resulting in an image area 7,700 pixels wide, not including black borders.
+  The native resolution of DSLR panoramas may be over 14,000 pixels wide. On display here are 3,800 pixels wide images.</p>
+
+<p><b>About Copyright-</b> The historic images are all in the public domain. But, public domain does not guarantee publicly accessible files.
+ For Oregon there is easy access to historic Osborne Panoramas through a website owned by The Nature Conservancy. 
+ Among the replicated panoramas displayed on this site, some were contracted by state or federal government, and are therefore in the public domain.
+  John Marshall owns copyright to all panoramic replications not generated under government contract.</p>
+
+<p><b>Public Display-</b> This website is designed for personal use, government or academic research, and for display before a live audience such as in a lecture hall. 
+  Please seek permission from the authors of this site, before incorporating any display or portion of a display into a separate product or presentation. 
+  Permission must also accompany any stand-alone display of this website in a public space.</p>
+</div>
+)
+}
+}*/
 
 
 
@@ -229,18 +288,18 @@ const resetZoomPanExit= () =>
       
     </div>
       <div className="header-right">
-      <div className="infoLinks">
-        <div>
-          <a href="https://www.wildlandnw.net/osborne-panoramas-historic-and-modern" target="_blank" rel="noreferrer">More Information <strong>↗</strong></a>
+        <div className="infoLinks">
+          <div>
+            <a href="https://www.wildlandnw.net/osborne-panoramas-historic-and-modern" target="_blank" rel="noreferrer">More Information <strong>↗</strong></a>
+          </div>
         </div>
-      </div>
-      <div className="infoLinks">
-        <div>
-          <a href="https://www.jfmarshall.com/" target="_blank" rel="noreferrer">
-            <p>Photo Replications</p>
-            <p>By John F. Marshall <strong>↗</strong></p>
-          </a>
-        </div>
+        <div className="infoLinks">
+          <div>
+            <a href="https://www.jfmarshall.com/" target="_blank" rel="noreferrer">
+              <p>Photo Replications</p>
+              <p>By John F. Marshall <strong>↗</strong></p>
+            </a>
+          </div>
       </div>
         <div className="createdby">
           <p>Website By</p>
@@ -258,39 +317,12 @@ const resetZoomPanExit= () =>
 
     <Menu pageWrapId={ "page-wrap" } outerContainerId={ "outer-container" } isOpen={isMenuOpen} onOpen={handleIsOpen}
     onClose={handleIsOpen} width={menuMode} noOverlay>
-     
-      <div>     
-      <button className="enterfullscreen" onClick={resetZoomPanEnter}>Fullscreen</button>
-      <button className="hiddenbuttonenter" onClick={handle.enter}></button>
-      </div>
-      <div className="fullscreencontainer">
-      <FullScreen handle={handle}>
       
-      {getImages([originalImageLinks], [replicationImageLinks])}
-      <button className="exitfullscreen" onClick={resetZoomPanExit}>x</button>
-      <button className="hiddenbuttonexit" onClick={handle.exit}></button>
-      </FullScreen>
-      </div>
-      <div className="controls">
-        <p>You can use your mouse or touchscreen to pan and zoom these images.</p>
-        
-      </div>
-      
+          {getImages([originalImageLinks], [replicationImageLinks])}
+          
     </Menu>
 
-
-
-
-
-
-
-
-
-
-
-
-
-      <main id="page-wrap"> 
+<main id="page-wrap"> 
   <MapContainer center={[45.60, -125.38]} zoom={6} scrollWheelZoom={true} zoomControl={false}>
   
     <TileLayer
@@ -301,7 +333,7 @@ const resetZoomPanExit= () =>
        <LayersControl position="topright">
         {
           <LayersControl.Overlay name="All Other Sites">
-          <LayerGroup>
+            <LayerGroup>
                     {allOtherSites.map(site => (
               <Marker
               key = {site.id}
@@ -311,21 +343,21 @@ const resetZoomPanExit= () =>
                
                   setRepLinks(["","","",""]); //resetting the links here in order to make sure images from previously clicked marker is not included.
                   setOrLinks(["","","",""]);
-                  setMenuOpen(false);
+                  setMenuOpen(false); //Sites without pictures will not open the picture sidebar.
                  
                 },
               }}>
                 <Popup>
-                <div className="sidebar">
-                  <b>Site Name: </b> {site.SiteName}<br />
-                  <b>Forest:  </b> {site.Forest}<br />
-                  <b>County:  </b> {site.County}<br />
-                  <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
-                  <b>Latitude:  </b> {site.Latitude}<br />
-                  <b>Longitude: </b> {site.Longitude}<br />
-                  <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
-                  <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
-                </div>
+                  <div className="sidebar">
+                    <b>Site Name: </b> {site.SiteName}<br />
+                    <b>Forest:  </b> {site.Forest}<br />
+                    <b>County:  </b> {site.County}<br />
+                    <b>Elevation in Feet: </b>: {site.ElevationFeet}<br />
+                    <b>Latitude:  </b> {site.Latitude}<br />
+                    <b>Longitude: </b> {site.Longitude}<br />
+                    <b>Township, Range, Section, Meridian:  </b> {site.TRSM}<br />
+                    <b>USGS 7.5 min. map: </b> {site.USGS75Min}<br />
+                  </div>
                 </Popup>
                 <Tooltip>{site.SiteName}</Tooltip>
               </Marker>
@@ -362,21 +394,17 @@ const resetZoomPanExit= () =>
                   
                 },
               }}>
-                <Popup className="imageInfo">
-                
-                <div className="sidebar">
-                  <b>Site Name: </b> {recSite.SiteName}<br />
-                  <b>Forest:  </b> {recSite.Forest}<br />
-                  <b>County:  </b> {recSite.County}<br />
-                  <b>Elevation in Feet: </b>: {recSite.ElevationFeet}<br />
-                  <b>Latitude:  </b> {recSite.Latitude}<br />
-                  <b>Longitude: </b> {recSite.Longitude}<br />
-                  <b>Township, Range, Section, Meridian:  </b> {recSite.TRSM}<br />
-                  <b>USGS 7.5 min. map: </b> {recSite.USGS75Min}<br />
-                </div>
-                
-                
-                
+                <Popup className="imageInfo">     
+                  <div className="sidebar">
+                    <b>Site Name: </b> {recSite.SiteName}<br />
+                    <b>Forest:  </b> {recSite.Forest}<br />
+                    <b>County:  </b> {recSite.County}<br />
+                    <b>Elevation in Feet: </b>: {recSite.ElevationFeet}<br />
+                    <b>Latitude:  </b> {recSite.Latitude}<br />
+                    <b>Longitude: </b> {recSite.Longitude}<br />
+                    <b>Township, Range, Section, Meridian:  </b> {recSite.TRSM}<br />
+                    <b>USGS 7.5 min. map: </b> {recSite.USGS75Min}<br />
+                  </div>      
                 </Popup>
                 <Tooltip>{recSite.SiteName}</Tooltip>
               </Marker>
@@ -451,7 +479,7 @@ const resetZoomPanExit= () =>
   </MapContainer>
     
       </main>
-  </div>
+</div>
   
   );
 }
