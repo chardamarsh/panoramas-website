@@ -283,11 +283,16 @@ return(
         <img className="iconimg" src={cameraicon} alt="icon"></img>
       </div>
       <div className="title">
-        Osborne Panoramas Map
+        Osborne Panoramas
       </div>
       
     </div>
       <div className="header-right">
+      <div className="infoLinks">
+          <div>
+            <a href="https://github.com/chardamarsh/panoramas-website#readme" target="_blank" rel="noreferrer">About This Site <strong>↗</strong></a>
+          </div>
+        </div>
         <div className="infoLinks">
           <div>
             <a href="https://www.wildlandnw.net/osborne-panoramas-historic-and-modern" target="_blank" rel="noreferrer">More Information <strong>↗</strong></a>
