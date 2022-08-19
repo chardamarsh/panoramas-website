@@ -139,9 +139,9 @@
    "USGS75Min": "Bonneville Dam, WA",
    "Photographer": "REINHARDT",
    "TakenOn": "7/7/1941",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/9/",
+   "repDirections": "SE",
+   "orDirections": "SE N"
  },
  {
    "id": 10,
@@ -299,9 +299,9 @@
    "USGS75Min": "Mount Rainier East, WA",
    "Photographer": "G.B.C.",
    "TakenOn": "8/8/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/19/",
+   "repDirections": "SE",
+   "orDirections": "SE SW N"
  },
  {
    "id": 20,
@@ -3051,9 +3051,9 @@
    "USGS75Min": "Coffin Mountain, OR",
    "Photographer": "COOPER",
    "TakenOn": "5/18/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/191/",
+   "repDirections": "SE",
+   "orDirections": "SE"
  },
  {
    "id": 192,
@@ -3979,9 +3979,9 @@
    "USGS75Min": "Mount Defiance, WA",
    "Photographer": "_",
    "TakenOn": "7/8/1937",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/249/",
+   "repDirections": "SW",
+   "orDirections": "SW SE"
  },
  {
    "id": 250,
@@ -5963,9 +5963,9 @@
    "USGS75Min": "Bonneville Dam, WA",
    "Photographer": "COOPER",
    "TakenOn": "7/11/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/373/",
+   "repDirections": "SE",
+   "orDirections": "SE SW N"
  },
  {
    "id": 374,
@@ -7243,9 +7243,9 @@
    "USGS75Min": "Harter Mountain, OR",
    "Photographer": "SNYDER",
    "TakenOn": "9/3/1933",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/453/",
+   "repDirections": "SE",
+   "orDirections": "SE SW N"
  },
  {
    "id": 454,
@@ -11739,9 +11739,9 @@
    "USGS75Min": "Aneroid Mountain, OR",
    "Photographer": "_",
    "TakenOn": "9/7/1936",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/734/",
+   "repDirections": "SW",
+   "orDirections": "SW"
  },
  {
    "id": 735,
@@ -13819,9 +13819,9 @@
    "USGS75Min": "Mount Rainier East, WA",
    "Photographer": "_",
    "TakenOn": "8/8/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/864/",
+   "repDirections": "SW SE",
+   "orDirections": "SW SE"
  },
  {
    "id": 865,
