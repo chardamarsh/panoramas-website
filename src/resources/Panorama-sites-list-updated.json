@@ -1307,9 +1307,9 @@
    "USGS75Min": "Bennet Peak, OR",
    "Photographer": "ARNST",
    "TakenOn": "9/10/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/82/",
+   "repDirections": "N",
+   "orDirections": "N SW"
  },
  {
    "id": 83,
@@ -2027,9 +2027,9 @@
    "USGS75Min": "Deadhorse Ridge, OR",
    "Photographer": "ARNST",
    "TakenOn": "8/17/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/127/",
+   "repDirections": "SW SE",
+   "orDirections": "SW SE"
  },
  {
    "id": 128,
@@ -4587,9 +4587,9 @@
    "USGS75Min": "Poison Point, OR",
    "Photographer": "ARNST",
    "TakenOn": "8/16/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/287/",
+   "repDirections": "SE",
+   "orDirections": "SE"
  },
  {
    "id": 288,
@@ -6203,9 +6203,9 @@
    "USGS75Min": "Hat Point, OR",
    "Photographer": "_",
    "TakenOn": "8/29/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/388/",
+   "repDirections": "N SW",
+   "orDirections": "N SW SE"
  },
  {
    "id": 389,
@@ -7003,9 +7003,9 @@
    "USGS75Min": "Lostine, OR",
    "Photographer": "ARNST",
    "TakenOn": "8/21/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/438/",
+   "repDirections": "SW N E",
+   "orDirections": "SW N E"
  },
  {
    "id": 439,
@@ -7707,9 +7707,9 @@
    "USGS75Min": "Table Mountain, OR",
    "Photographer": "ARNST",
    "TakenOn": "8/16/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/482/",
+   "repDirections": "N SE",
+   "orDirections": "N SE SW"
  },
  {
    "id": 483,
@@ -11675,9 +11675,9 @@
    "USGS75Min": "Billy Meadows, OR",
    "Photographer": "ARNST",
    "TakenOn": "8/16/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/730/",
+   "repDirections": "SE",
+   "orDirections": "SE"
  },
  {
    "id": 731,
@@ -13339,9 +13339,9 @@
    "USGS75Min": "Sparta Butte, OR",
    "Photographer": "ARNST",
    "TakenOn": "9/9/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/834/",
+   "repDirections": "SW SE N",
+   "orDirections": "SW SE N"
  },
  {
    "id": 835,
