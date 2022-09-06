@@ -315,9 +315,9 @@
    "USGS75Min": "Arbuckle Mountain, OR",
    "Photographer": "ARNST",
    "TakenOn": "7/22/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/20/",
+   "repDirections": "SE SW",
+   "orDirections": "SE SW N"
  },
  {
    "id": 21,
@@ -683,9 +683,9 @@
    "USGS75Min": "Manastash Lake, WA",
    "Photographer": "G.B.C.",
    "TakenOn": "7/18/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/43/",
+   "repDirections": "N SW SWsupp",
+   "orDirections": "N SW SWsupp"
  },
  {
    "id": 44,
@@ -779,9 +779,9 @@
    "USGS75Min": "Deardorff Mountain, OR",
    "Photographer": "ARNST",
    "TakenOn": "10/16/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/49/",
+   "repDirections": "S",
+   "orDirections": "S SE SW N"
  },
  {
    "id": 50,
@@ -827,9 +827,9 @@
    "USGS75Min": "Bally Mountain, OR",
    "Photographer": "ARNST",
    "TakenOn": "7/26/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/52/",
+   "repDirections": "SE",
+   "orDirections": "SE SW N"
  },
  {
    "id": 53,
@@ -1355,9 +1355,9 @@
    "USGS75Min": "Nile, WA",
    "Photographer": "CLISBY",
    "TakenOn": "7/31/1936",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/85/",
+   "repDirections": "N SE SW",
+   "orDirections": "N SE SW"
  },
  {
    "id": 86,
@@ -2075,9 +2075,9 @@
    "USGS75Min": "Bullrun Rock, OR",
    "Photographer": "_",
    "TakenOn": "9/9/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/130/",
+   "repDirections": "N SW",
+   "orDirections": "N SW"
  },
  {
    "id": 131,
@@ -3691,9 +3691,9 @@
    "USGS75Min": "Maiden Peak, WA",
    "Photographer": "CLISBY",
    "TakenOn": "6/21/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/231/",
+   "repDirections": "SE SW",
+   "orDirections": "SE SW N"
  },
  {
    "id": 232,
@@ -3835,9 +3835,9 @@
    "USGS75Min": "Diamond Peak, WA",
    "Photographer": "ARNST",
    "TakenOn": "8/6/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/240/",
+   "repDirections": "SE",
+   "orDirections": "SE SW N"
  },
  {
    "id": 241,
@@ -4251,9 +4251,9 @@
    "USGS75Min": "Saska Peak, WA",
    "Photographer": "R.R.S.",
    "TakenOn": "9/6/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/266/",
+   "repDirections": "SE SW N",
+   "orDirections": "SE SW N"
  },
  {
    "id": 267,
@@ -4843,9 +4843,9 @@
    "USGS75Min": "McIntyre Creek, OR",
    "Photographer": "ARNST",
    "TakenOn": "7/26/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/303/",
+   "repDirections": "SE",
+   "orDirections": "SE SW N"
  },
  {
    "id": 304,
@@ -5995,9 +5995,9 @@
    "USGS75Min": "Deadman Peak, WA",
    "Photographer": "ARNST",
    "TakenOn": "8/10/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/375/",
+   "repDirections": "SE SW",
+   "orDirections": "SE SW N"
  },
  {
    "id": 376,
@@ -6539,9 +6539,9 @@
    "USGS75Min": "Andies Prairie, OR",
    "Photographer": "ARNST",
    "TakenOn": "7/30/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/409/",
+   "repDirections": "SE SW N",
+   "orDirections": "SE SW N"
  },
  {
    "id": 410,
@@ -7099,9 +7099,9 @@
    "USGS75Min": "Hurricane Hill, WA",
    "Photographer": "OSBORNE",
    "TakenOn": "8/25/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/444/",
+   "repDirections": "SE SW N",
+   "orDirections": "SE SW N"
  },
  {
    "id": 445,
@@ -7627,9 +7627,9 @@
    "USGS75Min": "Ardenvoir, WA",
    "Photographer": "CLISBY",
    "TakenOn": "10/2/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/477/",
+   "repDirections": "SE SW SW2",
+   "orDirections": "SE SW SW2"
  },
  {
    "id": 478,
@@ -8075,9 +8075,9 @@
    "USGS75Min": "Blewett Pass, WA",
    "Photographer": "J.D.R.",
    "TakenOn": "8/28/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/505/",
+   "repDirections": "N SW",
+   "orDirections": "N SW SE"
  },
  {
    "id": 506,
@@ -9227,9 +9227,9 @@
    "USGS75Min": "Mission Peak, WA",
    "Photographer": "R.R.S.",
    "TakenOn": "8/18/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/577/",
+   "repDirections": "SE SW N",
+   "orDirections": "SE SW N"
  },
  {
    "id": 578,
@@ -11051,9 +11051,9 @@
    "USGS75Min": "Pogue Point, OR",
    "Photographer": "ARNST",
    "TakenOn": "10/15/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/691/",
+   "repDirections": "SW",
+   "orDirections": "SW SE"
  },
  {
    "id": 692,
@@ -11131,9 +11131,9 @@
    "USGS75Min": "Arbuckle Mountain, OR",
    "Photographer": "ARNST",
    "TakenOn": "7/22/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/696/",
+   "repDirections": "N SW",
+   "orDirections": "N SW SE"
  },
  {
    "id": 697,
@@ -11595,9 +11595,9 @@
    "USGS75Min": "Raven Roost, WA",
    "Photographer": "G.B.C.",
    "TakenOn": "8/18/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/725/",
+   "repDirections": "N SW",
+   "orDirections": "N SW SE"
  },
  {
    "id": 726,
@@ -11803,9 +11803,9 @@
    "USGS75Min": "Red Top Mountain, WA",
    "Photographer": "R.L.C.",
    "TakenOn": "8/31/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/738/",
+   "repDirections": "SE SW N",
+   "orDirections": "SE SW N"
  },
  {
    "id": 739,
@@ -13467,9 +13467,9 @@
    "USGS75Min": "Red Top Mountain, WA",
    "Photographer": "R.L.C.",
    "TakenOn": "8/28/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/842/",
+   "repDirections": "SE SW N",
+   "orDirections": "SE SW N"
  },
  {
    "id": 843,
@@ -13803,9 +13803,9 @@
    "USGS75Min": "Sugarloaf Peak, WA",
    "Photographer": "R.R.S.",
    "TakenOn": "8/16/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/863/",
+   "repDirections": "N SE",
+   "orDirections": "N SE SW"
  },
  {
    "id": 864,
@@ -14203,9 +14203,9 @@
    "USGS75Min": "Bullrun Rock, OR",
    "Photographer": "OSBORNE",
    "TakenOn": "9/9/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/888/",
+   "repDirections": "N SE SW",
+   "orDirections": "N SE SW"
  },
  {
    "id": 889,
@@ -14219,9 +14219,9 @@
    "USGS75Min": "Deadman Peak, WA",
    "Photographer": "ARNST",
    "TakenOn": "8/9/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/889/",
+   "repDirections": "SE SW",
+   "orDirections": "SE SW N NE"
  },
  {
    "id": 890,
@@ -14427,9 +14427,9 @@
    "USGS75Min": "Kachess Lake, WA",
    "Photographer": "J.D.R.",
    "TakenOn": "8/21/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/902/",
+   "repDirections": "SE SW N",
+   "orDirections": "SE SW N"
  },
  {
    "id": 903,
@@ -14635,9 +14635,9 @@
    "USGS75Min": "Timberwolf Mountain, WA",
    "Photographer": "G.B.C.",
    "TakenOn": "7/17/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/915/",
+   "repDirections": "SW",
+   "orDirections": "SW SE N"
  },
  {
    "id": 916,
@@ -14667,9 +14667,9 @@
    "USGS75Min": "Tiptop, WA",
    "Photographer": "R.R.S.",
    "TakenOn": "6/8/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/917/",
+   "repDirections": "SW N",
+   "orDirections": "SW N SE"
  },
  {
    "id": 918,
@@ -14779,9 +14779,9 @@
    "USGS75Min": "Tower Mountain, OR",
    "Photographer": "ARNST",
    "TakenOn": "7/25/1935",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/924/",
+   "repDirections": "SE SW N",
+   "orDirections": "SE SW N"
  },
  {
    "id": 925,
@@ -15035,9 +15035,9 @@
    "USGS75Min": "Tyee Mountain, WA",
    "Photographer": "R.R.S.",
    "TakenOn": "9/20/1934",
-   "imgFolder": "",
-   "repDirections": "",
-   "orDirections": ""
+   "imgFolder": "/940/",
+   "repDirections": "N SW",
+   "orDirections": "N SW SE"
  },
  {
    "id": 941,
